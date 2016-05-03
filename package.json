@@ -12,6 +12,7 @@
     "roots": "^4.1.0",
     "roots-browserify": "^0.5.0",
     "rupture": "0.6.x",
-    "stylus": "0.52.x"
+    "stylus": "0.52.x",
+    "vue": "^1.0.21"
   }
 }

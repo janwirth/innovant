@@ -1,6 +1,19 @@
 extends layout
 
 block content
-  h3 Welcome to roots!
-  :marked
-    Find tutorials and documentation at http://roots.cx : )
+  #app
+    section(v-for='module in innovation.versions[0].modules' class='Module--{{module.type}}')
+      .Module-content
+        div(v-for='(type, value) in module.content' class='{{type}}')
+          img(v-if='type == "Image"' src='{{value}}')
+          span(v-else) {{value}}
+          
+      .Module-analytics(v-if='module.analytics.active')
+        .Question
+          .Question-text {{module.analytics.question.text}}
+          .Question-explanation {{module.analytics.question.explanation}}
+        
+        div(v-if='module.analytics.scale.type == "analog"' class='Input--analog')
+          .Input-labelLow {{module.analytics.scale.labelLow}}
+          input(type='range').Input-element
+          .Input-labelHigh {{module.analytics.scale.labelHigh}}
