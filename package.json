@@ -7,10 +7,10 @@
     "coffee-script": "^1.0.0",
     "css-pipeline": "0.3.x",
     "jade": "^1.0.0",
-    "js-pipeline": "0.2.x",
     "jstransformer-marked": "^1.0.0",
     "marked": "0.3.x",
     "roots": "^4.1.0",
+    "roots-browserify": "^0.5.0",
     "rupture": "0.6.x",
     "stylus": "0.52.x"
   }
