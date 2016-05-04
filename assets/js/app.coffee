@@ -1,11 +1,12 @@
 Vue = require 'vue'
+Medium = require 'medium.js'
 
 # dummy innovation page data
 currentInnovation =
   modules: [
     type: 'hero'
     content:
-      Title: 'Hello World',
+      Heading: 'Staubsaugen revolutioniert',
       Text: 'Der neue Staubsaugo'
       Image: 'https://images.unsplash.com/photo-1459664018906-085c36f472af?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=0790a8686cb07ac8851066ef544f1082'
     analytics:
@@ -19,9 +20,22 @@ currentInnovation =
         labelHigh: 'gut'
   ]
 
+
+
+# Contenteditable directive
+Vue.directive 'medium',
+  twoWay: true
+  params: ['mode']
+  update: (newValue, oldValue) ->
+    @medium = new Medium
+      element: @el
+      mode: Medium.inlineMode
+    @medium.value newValue
+    @medium.element.addEventListener 'keyup', =>
+      @set @medium.value()
+
 # Initialize view engine
-app = new Vue
+vm = new Vue
   el: '#app'
   data:
-    innovation:
-      versions: [currentInnovation]
+    innovation: currentInnovation
