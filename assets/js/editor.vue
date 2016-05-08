@@ -38,7 +38,10 @@ saveInnovation = (newState, oldState) ->
 
 module.exports =
   data: ->
-    innovation: currentInnovation
+    console.log @$route
+    data = 
+      innovation: currentInnovation
+    return data
   directives:
     medium: require './mediumDirective'
   watch:
