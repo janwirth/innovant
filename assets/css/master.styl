@@ -1,4 +1,35 @@
 @import '_settings'
+@import '_typographic'
 global-reset()
 border-box-html()
 base()
+
+html
+  t-html()
+
+.Heading
+  t-h2()
+  .Module:first-child &
+    t-h1()
+.Module
+  background transparentify(white, white, 0.6)
+  border-bottom 10px solid black
+  &-content
+    relative()
+    overflow hidden
+    padding 100px 20px
+    text-align center
+    +above(500px)
+      padding calc(vr-block(10) - 100px)
+  &-analytics
+    background #222
+    padding 50px 20px
+    color #aaa
+[contenteditable]:focus
+  background black
+  color white
+
+.Image
+  absolute top 0 left 0
+  width 100%
+  z-index -1
