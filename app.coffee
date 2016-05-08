@@ -1,14 +1,20 @@
+css_pipeline = require 'css-pipeline'
+autoprefixer = require 'autoprefixer-stylus'
 axis         = require 'axis'
 rupture      = require 'rupture'
-autoprefixer = require 'autoprefixer-stylus'
+
 browserify   = require 'roots-browserify'
-css_pipeline = require 'css-pipeline'
+vueify       = require 'vueify'
+coffeeify    = require 'coffeeify'
 
 module.exports =
   ignores: ['readme.md', '**/layout.*', '**/_*', '.gitignore', 'ship.*conf']
 
   extensions: [
-    browserify(files: 'assets/js/app.coffee', out: 'app.js'),
+    browserify
+      files: 'assets/js/app.coffee'
+      out: 'app.js'
+      transforms: [coffeeify, vueify]
     css_pipeline(files: 'assets/css/*.styl')
   ]
 

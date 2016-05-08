@@ -5,6 +5,7 @@
     "autoprefixer-stylus": "0.8.x",
     "axis": "0.5.x",
     "coffee-script": "^1.0.0",
+    "coffeeify": "^2.0.1",
     "css-pipeline": "0.3.x",
     "jade": "^1.0.0",
     "jstransformer-marked": "^1.0.0",
@@ -15,5 +16,14 @@
     "rupture": "0.6.x",
     "stylus": "0.52.x",
     "vue": "^1.0.21"
+  },
+  "devDependencies": {
+    "babel-core": "^6.8.0",
+    "babel-plugin-transform-runtime": "^6.8.0",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-runtime": "^6.6.1",
+    "vue-hot-reload-api": "^1.3.2",
+    "vueify": "^8.4.1",
+    "vueify-insert-css": "^1.0.0"
   }
 }
