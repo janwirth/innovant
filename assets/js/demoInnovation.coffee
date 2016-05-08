@@ -1,5 +1,9 @@
 # dummy innovation page data
-module.exports =
+
+shortid = require 'shortid'
+module.exports = ->
+  _id: shortid.generate()
+  name: 'Staubsaugo 3000'
   modules: [
     type: 'hero'
     content:
