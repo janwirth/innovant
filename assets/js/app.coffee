@@ -3,8 +3,7 @@ VueRouter = require 'vue-router'
 
 Vue.use VueRouter
 
-router    = new VueRouter
-  root: '/'
+router    = new VueRouter()
 
 editor    = require './editor.vue'
 overview  = require './overview.vue'
