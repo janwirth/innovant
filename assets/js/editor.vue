@@ -28,19 +28,24 @@ section(v-for='module in innovation.modules' class='Module--{{module.type}}').Mo
 
 <script lang="coffee">
 demoInnovation = require './demoInnovation'
+DB = require './localStorageDB.js'
+
 
 savedInnovation = localStorage.getItem 'innovation'
 currentInnovation = JSON.parse savedInnovation if savedInnovation?
 
 saveInnovation = (newState, oldState) ->
-  console.log JSON.stringify newState
-  localStorage.setItem 'innovation', JSON.stringify newState
+  db =  DB 'innovant', localStorage
+  db.update 'innovationVersions', {_id: oldState._id}, (row) -> 
+    newState
+  db.commit()
 
 module.exports =
   data: ->
-    console.log @$route
+    db =  DB 'innovant', localStorage
+    currentVersion = db.queryAll('innovationVersions', {query: {_id: @$route.params._id}})[0]
     data = 
-      innovation: currentInnovation
+      innovation: currentVersion
     return data
   directives:
     medium: require './mediumDirective'

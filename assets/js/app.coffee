@@ -9,7 +9,7 @@ editor    = require './editor.vue'
 overview  = require './overview.vue'
 
 router.map
-  '/edit':
+  '/edit/:_id/:innovation_slug':
     component: editor
   '/':
     component: overview
