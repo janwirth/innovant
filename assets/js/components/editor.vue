@@ -27,12 +27,7 @@ section(v-for='module in innovation.modules' class='Module--{{module.type}}').Mo
 
 
 <script lang="coffee">
-demoInnovation = require './demoInnovation'
-DB = require './localStorageDB.js'
-
-
-savedInnovation = localStorage.getItem 'innovation'
-currentInnovation = JSON.parse savedInnovation if savedInnovation?
+DB = require '../localStorageDB.js'
 
 saveInnovation = (newState, oldState) ->
   db =  DB 'innovant', localStorage
@@ -48,7 +43,7 @@ module.exports =
       innovation: currentVersion
     return data
   directives:
-    medium: require './mediumDirective'
+    medium: require '../directives/medium'
   watch:
     innovation:
       handler: saveInnovation

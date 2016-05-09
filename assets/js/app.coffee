@@ -5,8 +5,8 @@ Vue.use VueRouter
 
 router    = new VueRouter()
 
-editor    = require './editor.vue'
-overview  = require './overview.vue'
+editor    = require './components/editor.vue'
+overview  = require './components/overview.vue'
 
 router.map
   '/edit/:_id/:innovation_slug':

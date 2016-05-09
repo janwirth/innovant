@@ -10,11 +10,11 @@ h1 Overview
 </template>
 
 <script lang="coffee">
-demoInnovation = require './demoInnovation.coffee'
+demoInnovation = require '../resources/demoInnovation'
 
 slug = require 'slug'
 
-DB = require './localStorageDB.js'
+DB = require '../localStorageDB.js'
 db = DB 'innovant', localStorage
 
 if !db.tableExists 'innovations'
