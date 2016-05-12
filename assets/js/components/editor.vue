@@ -3,14 +3,19 @@ section(v-for='module in innovation.modules' class='Module--{{module.type}}').Mo
   .Module-content
     // render each content bit
     div(v-for='(type, value) in module.content' class='{{type}}')
-      // img(v-if='type == "Image"' v-bind:src='value').Image
+
       .Heading-wrap(v-if='type == "Heading"')
         h1.Heading(v-medium='value')
+
       .Text-wrap(v-if='type == "Text"')
         p.Text(v-medium='value')
+
       .Image-wrap(v-if='type == "Image"')
         img(v-bind:src='value').Image
-      // .Text(v-else v-medium='value')
+
+      .Table-wrap(v-if='type == "Table"')
+        {{{value}}}
+
 
   // render question
   .Module-analytics(v-if='module.analytics.active')
