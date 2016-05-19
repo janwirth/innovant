@@ -1401,7 +1401,10 @@
 						theLength = ((typeof pos !== 'undefined') && (pos !== null) ? pos : length);
 
 					range = d.createRange();
-					range.setStart(toModify, theLength);
+					try{
+  					range.setStart(toModify, theLength);
+					}
+					catch(e){ console.log(e)};
 					range.collapse(true);
 					selection.removeAllRanges();
 					selection.addRange(range);

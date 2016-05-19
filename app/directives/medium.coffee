@@ -5,7 +5,7 @@ module.exports =
   update: (newValue, oldValue) ->
     @medium = new Medium
       element: @el
-      mode: Medium.inlineMode
+      mode: Medium.richMode
     @medium.value newValue
     @medium.element.addEventListener 'keyup', =>
       @set @medium.value()
