@@ -11,16 +11,17 @@ html
   t-h2()
   .Module:first-child &
     t-h1()
+
+.Module--hero
+  .Module-content
+    padding vr-block(10) 0
+
 .Module
-  background transparentify(white, white, 0.6)
-  border-bottom 10px solid black
   &-content
     relative()
     overflow hidden
-    padding 100px 20px
     text-align center
-    +above(500px)
-      padding calc(vr-block(10) - 100px)
+    padding vr-block(3) 0
   &-analytics
     background #222
     padding 50px 20px
@@ -56,3 +57,79 @@ html
   background red
 .InnovationCard--create
   background green
+
+.Module-analytics
+  display flex
+  flex-direction column
+  justify-content center
+  align-items center
+  > *
+    width 100%
+    max-width vr-block(20)
+
+.Question
+  &-text
+    t-h4()
+  &-explanation
+    t-h5()
+
+$Input
+  margin vr-block(.5)
+  border 1px solid rgba(white, .1)
+  border-radius .1em
+  padding vr-block(.5, 1)
+
+.Input--range
+  @extend $Input
+  display flex
+  align-items center
+  justify-content space-around
+  .Input-element
+    range lightblue 50% 25px 2px rgba(white, .5)
+
+.Input--textarea
+  @extend $Input
+  .Input-element
+    margin vr-block(1) 0
+    width 100%
+    height vr-block(12)
+    display block
+    border-radius .1em
+    background rgba(white, .5)
+    border 1px solid white
+    t-html()
+    outline none
+    color black
+    &:focus
+      background white
+
+.Table-wrap
+  margin-top vr-block(2)
+  display flex
+  justify-content center
+  align-items center
+  th
+    font-weight bold
+    border-bottom 1px solid black
+  td
+  th
+    padding vr-block(.4)
+    min-height vr-block(1)
+    text-align center
+    &:first-child
+      text-align left
+    &:not(:last-child)
+      border-right 1px solid black
+
+.Editor
+  display flex
+  background #EEE
+  &-view
+    flex-grow 2
+    background white
+    transform scale(.95)
+    box-shadow 0 0 47px 0px rgba(0,0,0,0.29)
+  &-toolbar
+    background black
+    width vr-block(8)
+

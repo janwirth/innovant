@@ -6,7 +6,7 @@ h1 Overview
   .InnovationCard--clear(v-on:click='clearInnovations')
     .InnovationCard-title Clear Innovations
   .InnovationCard(v-for='innovation in innovations' v-link='{ path: "/edit/" + innovation.currentVersion._id + "/" + innovation.currentVersion.slug}')
-    .InnovationCard-title {{innovation.currentVersion.name}}
+    .InnovationCard-title {{{innovation.currentVersion.name}}}
 </template>
 
 <script lang="coffee">

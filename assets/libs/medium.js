@@ -1404,7 +1404,7 @@
 					try{
   					range.setStart(toModify, theLength);
 					}
-					catch(e){ console.log(e)};
+					catch(e){};
 					range.collapse(true);
 					selection.removeAllRanges();
 					selection.addRange(range);

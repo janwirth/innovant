@@ -1,19 +1,39 @@
-tableify = require 'tableify'
 shortid = require 'shortid'
+jade = require 'jade'
 
 # dummy innovation page data
 #
+jadeTable =
+"""
+table(contenteditable='true')
+  thead
+    td Feature
+    th Basic
+    th Premium
+    th Pro
+  tr
+    td Unlimited Streaming
+    td X
+    td X
+    td X
+  tr
+    td Downloads
+    td
+    td X
+    td X
+  tr
+    td High Quality Streaming
+    td
+    td X
+    td X
+  tr
+    td Remixes
+    td
+    td
+    td X
+"""
+tableHtml = jade.render jadeTable
 
-defaultTable = [
-    hello: 'world'
-    you: 'know'
-  ,
-    hello: 'world'
-]
-
-html = tableify defaultTable
-editableHtml = html.substring(0,6) + ' contenteditable ' + html.substring(6)
-console.log editableHtml
 
 module.exports = ->
   _id: shortid.generate()
@@ -27,17 +47,20 @@ module.exports = ->
       analytics:
         active: true
         question:
-          text: 'Do you find this product visually appealing?'
-          explanation: 'Rate from zero to ten'
-        scale:
-          type: 'analog'
-          labelLow: 'ugly'
-          labelHigh: 'attractive'
+          text: 'How attractive do you find this design?'
+          explanation: 'Please do not consider the color scheme.'
+        inputs: [
+            type: 'range'
+            label: 'ugly'
+            labelHigh: 'attractive'
+          ,
+            type: 'textarea'
+          ]
     ,
       type: 'table'
       content:
         Heading: 'Compare our features',
-        Table: editableHtml
+        Table: tableHtml
       analytics:
         active: false
   ]

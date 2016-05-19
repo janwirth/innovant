@@ -7,10 +7,8 @@ $line-height-ratio   = 1.75
 $heading-ratio       = $golden
 $body-font           = $helvetica
 $body-font-weight    = 300
-$body-color          = #666
 $heading-font        = $helvetica
 $heading-font-weight = 500
-$heading-color       = #111
 $min-font            = 12px
 $max-font            = 20px
 $min-width           = 600px
@@ -94,7 +92,7 @@ grid-overlay($color = black, $px-offset = false)
 
 
 /**
- * Returns a "vertical unit". Useful for specifying the height and margins of non-text elements like images and such.
+ * color inherit
  *
  * @param {number} [$units=1] - Number of units. Accepts floated numbers as well.
  * @param {number} [$px-offset=false] - A positive or negative number of pixels to offset the grid by. Useful for lining the bottom of the gridlines up with your text. Since this doesn't compute a literal pixel you may need to use a floated number (multiples of .25 work well) to keep your rhythm on track.
@@ -116,7 +114,6 @@ vr-block($units = 1, $px-offset = false)
 t-html()
   font-family: $body-font
   font-weight: $body-font-weight
-  color: $body-color
 
   font-size: $min-font
   line-height: ($line-height-ratio)em
@@ -130,16 +127,15 @@ t-html()
 t-p = t-html
 
 t-reset()
-  margin: 0
+  color inherit
   padding: 0
 
 t-block()
-  margin-bottom: ($line-height-ratio)em
+  color inherit
 
 t-heading()
   font-family: $heading-font
   font-weight: $heading-font-weight
-  color: $heading-color
   clear: both
 
 t-h1()
@@ -148,13 +144,13 @@ t-h1()
 
   font-size: $local-min-font
   if $vertical-rhythm is true
-    margin-top: (($line-height-ratio * $min-font) / ($local-min-font / 1.25))em
+    color inherit
     line-height: (($line-height-ratio * $min-font) / ($local-min-font / 1.5))em
-    margin-bottom: (($line-height-ratio * $min-font) / ($local-min-font / .25))em
+    color inherit
   else
-    margin-top: 0
+    color inherit
     line-height: 1.1em
-    margin-bottom: .25em
+    color inherit
 
   @media (min-width: $min-width)
     font-size: s('calc( %s + (%s - %s) * ((100vw - %s) / (%s - %s)) )', $local-min-font, remove-unit($local-max-font), remove-unit($local-min-font), $min-width, remove-unit($max-width), remove-unit($min-width))
@@ -162,9 +158,9 @@ t-h1()
   @media (min-width: $max-width)
     font-size: $local-max-font
     if $vertical-rhythm is true
-      margin-top: (($line-height-ratio * $max-font) / ($local-max-font / 1.25))em
+      color inherit
       line-height: (($line-height-ratio * $max-font) / ($local-max-font / 1.5))em
-      margin-bottom: (($line-height-ratio * $max-font) / ($local-max-font / .25))em
+      color inherit
 
 t-h2()
   $local-min-font = $min-font * ($heading-ratio ** 1.4)
@@ -172,13 +168,13 @@ t-h2()
 
   font-size: $local-min-font
   if $vertical-rhythm is true
-    margin-top: (($line-height-ratio * $min-font) / ($local-min-font / 1.25))em
+    color inherit
     line-height: (($line-height-ratio * $min-font) / ($local-min-font / 1.5))em
-    margin-bottom: (($line-height-ratio * $min-font) / ($local-min-font / .25) * (1 + (3 / $local-min-font)))em
+    color inherit
   else
-    margin-top: 0
+    color inherit
     line-height: 1.2em
-    margin-bottom: .25em
+    color inherit
 
   @media (min-width: $min-width)
     font-size: s('calc( %s + (%s - %s) * ((100vw - %s) / (%s - %s)) )', $local-min-font, remove-unit($local-max-font), remove-unit($local-min-font), $min-width, remove-unit($max-width), remove-unit($min-width))
@@ -186,9 +182,9 @@ t-h2()
   @media (min-width: $max-width)
     font-size: $local-max-font
     if $vertical-rhythm is true
-      margin-top: (($line-height-ratio * $max-font) / ($local-max-font / 1.25))em
+      color inherit
       line-height: (($line-height-ratio * $max-font) / ($local-max-font / 1.5))em
-      margin-bottom: (($line-height-ratio * $max-font) / ($local-max-font / .25) * (1 + (3 / $local-max-font)))em
+      color inherit
 
 t-h3()
   $local-min-font = $min-font * ($heading-ratio ** 1.05)
@@ -196,13 +192,13 @@ t-h3()
 
   font-size: $local-min-font
   if $vertical-rhythm is true
-    margin-top: (($line-height-ratio * $min-font) / ($local-min-font / 1.25))em
+    color inherit
     line-height: (($line-height-ratio * $min-font) / ($local-min-font / 1.5))em
-    margin-bottom: (($line-height-ratio * $min-font) / ($local-min-font / .25) * (1 + (3 / $local-min-font)))em
+    color inherit
   else
-    margin-top: 0
+    color inherit
     line-height: 1.3em
-    margin-bottom: .25em
+    color inherit
 
   @media (min-width: $min-width)
     font-size: s('calc( %s + (%s - %s) * ((100vw - %s) / (%s - %s)) )', $local-min-font, remove-unit($local-max-font), remove-unit($local-min-font), $min-width, remove-unit($max-width), remove-unit($min-width))
@@ -210,9 +206,9 @@ t-h3()
   @media (min-width: $max-width)
     font-size: $local-max-font
     if $vertical-rhythm is true
-      margin-top: (($line-height-ratio * $max-font) / ($local-max-font / 1.25))em
+      color inherit
       line-height: (($line-height-ratio * $max-font) / ($local-max-font / 1.5))em
-      margin-bottom: (($line-height-ratio * $max-font) / ($local-max-font / .25) * (1 + (3 / $local-max-font)))em
+      color inherit
 
 t-h4()
   $local-min-font = $min-font * ($heading-ratio ** .7)
@@ -220,13 +216,13 @@ t-h4()
 
   font-size: $local-min-font
   if $vertical-rhythm is true
-    margin-top: (($line-height-ratio * $min-font) / ($local-min-font / 1.25))em
+    color inherit
     line-height: (($line-height-ratio * $min-font) / ($local-min-font / 1.5))em
-    margin-bottom: (($line-height-ratio * $min-font) / ($local-min-font / .25) * (1 + (3 / $local-min-font)))em
+    color inherit
   else
-    margin-top: 0
+    color inherit
     line-height: 1.4em
-    margin-bottom: .25em
+    color inherit
 
   @media (min-width: $min-width)
     font-size: s('calc( %s + (%s - %s) * ((100vw - %s) / (%s - %s)) )', $local-min-font, remove-unit($local-max-font), remove-unit($local-min-font), $min-width, remove-unit($max-width), remove-unit($min-width))
@@ -234,9 +230,9 @@ t-h4()
   @media (min-width: $max-width)
     font-size: $local-max-font
     if $vertical-rhythm is true
-      margin-top: (($line-height-ratio * $max-font) / ($local-max-font / 1.25))em
+      color inherit
       line-height: (($line-height-ratio * $max-font) / ($local-max-font / 1.5))em
-      margin-bottom: (($line-height-ratio * $max-font) / ($local-max-font / .25) * (1 + (3 / $local-max-font)))em
+      color inherit
 
 t-h5()
   $local-min-font = $min-font * ($heading-ratio ** .35)
@@ -244,13 +240,13 @@ t-h5()
 
   font-size: $local-min-font
   if $vertical-rhythm is true
-    margin-top: (($line-height-ratio * $min-font) / ($local-min-font / 1.25))em
+    color inherit
     line-height: (($line-height-ratio * $min-font) / ($local-min-font / 1.5))em
-    margin-bottom: (($line-height-ratio * $min-font) / ($local-min-font / .25))em
+    color inherit
   else
-    margin-top: 0
+    color inherit
     line-height: 1.5em
-    margin-bottom: .25em
+    color inherit
 
   @media (min-width: $min-width)
     font-size: s('calc( %s + (%s - %s) * ((100vw - %s) / (%s - %s)) )', $local-min-font, remove-unit($local-max-font), remove-unit($local-min-font), $min-width, remove-unit($max-width), remove-unit($min-width))
@@ -258,9 +254,9 @@ t-h5()
   @media (min-width: $max-width)
     font-size: $local-max-font
     if $vertical-rhythm is true
-      margin-top: (($line-height-ratio * $max-font) / ($local-max-font / 1.25))em
+      color inherit
       line-height: (($line-height-ratio * $max-font) / ($local-max-font / 1.5))em
-      margin-bottom: (($line-height-ratio * $max-font) / ($local-max-font / .25))em
+      color inherit
 
 t-h6()
   $local-min-font = $min-font
@@ -268,13 +264,13 @@ t-h6()
 
   font-size: $local-min-font
   if $vertical-rhythm is true
-    margin-top: (($line-height-ratio * $min-font) / ($local-min-font / 1.25))em
+    color inherit
     line-height: (($line-height-ratio * $min-font) / ($local-min-font / 1.5))em
-    margin-bottom: (($line-height-ratio * $min-font) / ($local-min-font / .25) * (1 + (5 / $local-min-font)))em
+    color inherit
   else
-    margin-top: 0
+    color inherit
     line-height: 1.6em
-    margin-bottom: .25em
+    color inherit
 
   @media (min-width: $min-width)
     font-size: s('calc( %s + (%s - %s) * ((100vw - %s) / (%s - %s)) )', $local-min-font, remove-unit($local-max-font), remove-unit($local-min-font), $min-width, remove-unit($max-width), remove-unit($min-width))
@@ -282,9 +278,9 @@ t-h6()
   @media (min-width: $max-width)
     font-size: $local-max-font
     if $vertical-rhythm is true
-      margin-top: (($line-height-ratio * $min-font) / ($local-min-font / 1.25))em
+      color inherit
       line-height: (($line-height-ratio * $min-font) / ($local-min-font / 1.5))em
-      margin-bottom: (($line-height-ratio * $min-font) / ($local-min-font / .25) * (1 + (1 / $local-min-font)))em
+      color inherit
 
 t-blockquote()
   font-style: italic
@@ -294,7 +290,7 @@ t-blockquote()
 
 t-pre()
   padding: vr-block(.5)
-  margin-bottom: vr-block(1)
+  color inherit
   code
     padding: 0
 
@@ -308,7 +304,6 @@ t-abbr()
   cursor: help
 
 t-dt()
-  color: $heading-color
   font-weight: bold
 
 t-fieldset()
@@ -316,22 +311,21 @@ t-fieldset()
   border-width: 1px
   border-style: solid
   max-width: 100%
-  margin-bottom: vr-block(1, 1)
+  color inherit
 
   @media (min-width: $max-width)
-    margin-bottom: vr-block(1.25, -1)
+    color inherit
 
   button, input[type="submit"]
-    margin-bottom: 0
+    color inherit
 
 t-legend()
-  color: $heading-color
   font-weight: bold
 
 t-label()
   display: block
   padding-bottom: vr-block(.125)
-  margin-bottom: vr-block(-.25, -10)
+  color inherit
 
 t-input()
   $local-min-font = $min-font
@@ -342,14 +336,14 @@ t-input()
   padding: vr-block(.25)
 
   font-size: $local-min-font
-  margin-bottom: vr-block(.5, 7)
+  color inherit
 
   @media (min-width: $min-width)
     font-size: s('calc( %s + (%s - %s) * ((100vw - %s) / (%s - %s)) )', $local-min-font, remove-unit($local-max-font), remove-unit($local-min-font), $min-width, remove-unit($max-width), remove-unit($min-width))
 
   @media (min-width: $max-width)
     font-size: $local-max-font
-    margin-bottom: vr-block(.25, 3.5)
+    color inherit
 
 t-button()
   $local-min-font = $min-font
@@ -360,27 +354,26 @@ t-button()
 
   font-size: $local-min-font
   padding: vr-block(.25) vr-block()
-  margin-bottom: vr-block(.75, -2)
+  color inherit
 
   @media (min-width: $min-width)
     font-size: s('calc( %s + (%s - %s) * ((100vw - %s) / (%s - %s)) )', $local-min-font, remove-unit($local-max-font), remove-unit($local-min-font), $min-width, remove-unit($max-width), remove-unit($min-width))
 
   @media (min-width: $max-width)
     font-size: $local-max-font
-    margin-bottom: vr-block(.75)
+    color inherit
 
 t-table()
   width: 100%
   border-spacing: 0
   border-collapse: collapse
-  margin-bottom: vr-block(1, 5)
+  color inherit
 
   @media (min-width: $max-width)
-    margin-bottom: vr-block(1, 3.5)
+    color inherit
 
 t-th()
   text-align: left
-  color: $heading-color
 
   padding: vr-block(.125) vr-block(.5)
 
