@@ -1,4 +1,5 @@
 css_pipeline = require 'css-pipeline'
+js_pipeline = require 'js-pipeline'
 autoprefixer = require 'autoprefixer-stylus'
 axis         = require 'axis'
 rupture      = require 'rupture'
@@ -11,8 +12,9 @@ module.exports =
   ignores: ['readme.md', '**/layout.*', '**/_*', '.gitignore', 'ship.*conf']
 
   extensions: [
+    js_pipeline(files: 'assets/libs/*.js')
     browserify
-      files: 'assets/js/app.coffee'
+      files: 'app/app.coffee'
       out: 'app.js'
       transforms: [coffeeify, vueify]
     css_pipeline(files: 'assets/css/*.styl')

@@ -1,6 +1,4 @@
 # Contenteditable directive
-Medium = require 'medium.js'
-
 module.exports =
   twoWay: true
   params: ['mode']
