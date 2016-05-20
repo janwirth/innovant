@@ -38,11 +38,16 @@ html
 .InnovationCard
   background white
   border 1px solid black
-  padding vr-block(2)
+  padding vr-block(.5)
   cursor pointer
+  margin vr-block(1)
+  size vr-block(6)
+  border-radius .2em
   &-wrap
     display flex
     flex-wrap wrap
+    justify-content flex-start
+    align-items center
   
   &:hover
     background black
@@ -133,3 +138,8 @@ $Input
     background black
     width vr-block(8)
 
+.Overview
+  &-heading
+    t-h2()
+    margin vr-block(.5)
+    text-align center
