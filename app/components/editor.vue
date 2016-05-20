@@ -37,6 +37,8 @@
             .Input-label(v-medium='input.label')
             textarea.Input-element
 
+  .Editor-toolbar
+    h1(v-medium='innovation.name' mode='inline')
 </template>
 
 
