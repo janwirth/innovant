@@ -44,28 +44,19 @@
 
 
 <script lang="coffee">
-DB = window.localStorageDB
 
-db = null
+db = require '../firebase.coffee'
 
 module.exports =
-  data: ->
-    # init DB with each load of component
-    db =  DB 'innovant', localStorage
-    currentVersion = db.queryAll('innovationVersions', {query: {ID: @$route.params.ID}})[0]
+  firebase: ->
+    console.log 'hi'
     data = 
-      innovation: currentVersion
-      versionID: currentVersion.ID # hack: localStorageDB screws up the id on update...
+      innovation: db.innovation $route.path.innovationSlug
     return data
 
   directives:
     medium: require '../directives/medium'
-
-  watch:
-    innovation:
-      deep: true
-      handler: (newState, oldState) ->
-        db.update 'innovationVersions', {ID: @versionID}, (row) -> 
-          newState
-        db.commit()
+  ready: =>
+    console.log 'ready'
+    console.log @innovation
 </script>

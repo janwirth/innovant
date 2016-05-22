@@ -5,9 +5,26 @@ tableHtml =
 <table contenteditable="true"><thead><tr><td>Feature</td><th>Basic</th><th>Premium</th><th>Pro</th></tr></thead><tbody><tr><td>Unlimited Streaming</td><td>X</td><td>X</td><td>X</td></tr><tr><td>Downloads</td><td></td><td>X</td><td>X</td></tr><tr><td>High Quality Streaming</td><td></td><td>X</td><td>X</td></tr><tr><td>Remixes</td><td></td><td></td><td>X</td></tr></tbody></table>
 """
 
+# FUNCTIONAL UTILITIES
+
+random = (max,min=0) -> Math.floor(Math.random() * (max - min) + min)
+
+slug = (str) ->
+  str = str.replace(/^\s+|\s+$/g, "").toLowerCase() # trim and force lowercase
+  from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;"
+  to   = "aaaaeeeeiiiioooouuuunc------"
+  for i in [i..from.length]
+    str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i))
+  # remove accents, swap ñ for n, etc  
+  str = str.replace(/[^a-z0-9 -]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-")
+  # remove invalid chars, collapse whitespace and replace by -, collapse dashes
+  return str # unnecessary line, but for clarity
+
+# STATEFUL TEMPLATE
 
 module.exports = ->
-  name: 'My new Product'
+  name: "Take over the world in #{random 100} days"
+  slug: slug @name
   modules: [
       type: 'hero'
       content:
