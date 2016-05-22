@@ -1,6 +1,13 @@
 Vue       = require 'vue'
 VueRouter = require 'vue-router'
 
+window.Medium = require './Medium.js'
+window.rangy = require 'rangy'
+window.Undo = require 'undo.js'
+
+console.log rangy
+console.log window
+
 Vue.use VueRouter
 
 router    = new VueRouter()

@@ -12,6 +12,7 @@ module.exports =
 
   extensions: [
     browserify
+      sourceMap: true
       files: 'assets/js/app.coffee'
       out: 'app.js'
       transforms: [coffeeify, vueify]

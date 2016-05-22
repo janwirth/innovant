@@ -14,7 +14,7 @@ section(v-for='module in innovation.modules' class='Module--{{module.type}}').Mo
         img(v-bind:src='value').Image
 
       .Table-wrap(v-if='type == "Table"')
-        {{{value}}}
+        | {{{value}}}
 
 
   // render question
