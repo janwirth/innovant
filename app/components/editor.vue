@@ -44,25 +44,28 @@
 
 
 <script lang="coffee">
-DB = require '../localStorageDB.js'
+DB = window.localStorageDB
 
-saveInnovation = (newState, oldState) ->
-  db =  DB 'innovant', localStorage
-  db.update 'innovationVersions', {_id: oldState._id}, (row) -> 
-    newState
-  db.commit()
+db = null
 
 module.exports =
   data: ->
+    # init DB with each load of component
     db =  DB 'innovant', localStorage
-    currentVersion = db.queryAll('innovationVersions', {query: {_id: @$route.params._id}})[0]
+    currentVersion = db.queryAll('innovationVersions', {query: {ID: @$route.params.ID}})[0]
     data = 
       innovation: currentVersion
+      versionID: currentVersion.ID # hack: localStorageDB screws up the id on update...
     return data
+
   directives:
     medium: require '../directives/medium'
+
   watch:
     innovation:
-      handler: saveInnovation
       deep: true
+      handler: (newState, oldState) ->
+        db.update 'innovationVersions', {ID: @versionID}, (row) -> 
+          newState
+        db.commit()
 </script>

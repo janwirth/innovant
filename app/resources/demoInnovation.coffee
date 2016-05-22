@@ -1,42 +1,12 @@
-shortid = require 'shortid'
-jade = require 'jade'
-
 # dummy innovation page data
 #
-jadeTable =
+tableHtml =
 """
-table(contenteditable='true')
-  thead
-    td Feature
-    th Basic
-    th Premium
-    th Pro
-  tr
-    td Unlimited Streaming
-    td X
-    td X
-    td X
-  tr
-    td Downloads
-    td
-    td X
-    td X
-  tr
-    td High Quality Streaming
-    td
-    td X
-    td X
-  tr
-    td Remixes
-    td
-    td
-    td X
+<table contenteditable="true"><thead><tr><td>Feature</td><th>Basic</th><th>Premium</th><th>Pro</th></tr></thead><tbody><tr><td>Unlimited Streaming</td><td>X</td><td>X</td><td>X</td></tr><tr><td>Downloads</td><td></td><td>X</td><td>X</td></tr><tr><td>High Quality Streaming</td><td></td><td>X</td><td>X</td></tr><tr><td>Remixes</td><td></td><td></td><td>X</td></tr></tbody></table>
 """
-tableHtml = jade.render jadeTable
 
 
 module.exports = ->
-  _id: shortid.generate()
   name: 'My new Product'
   modules: [
       type: 'hero'

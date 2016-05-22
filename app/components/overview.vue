@@ -6,16 +6,25 @@
       .InnovationCard-title New Innovation
     .InnovationCard--clear(v-on:click='clearInnovations')
       .InnovationCard-title Clear Innovations
-    .InnovationCard(v-for='innovation in innovations' v-link='{ path: "/edit/" + innovation.currentVersion._id + "/" + innovation.currentVersion.slug}')
+    .InnovationCard(v-for='innovation in innovations' v-link='{ path: "/edit/" + innovation.currentVersion.ID + "/" + innovation.currentVersion.slug}')
       .InnovationCard-title {{{innovation.currentVersion.name}}}
 </template>
 
 <script lang="coffee">
 demoInnovation = require '../resources/demoInnovation'
 
-slug = require 'slug'
+slug = (str) ->
+  str = str.replace(/^\s+|\s+$/g, "").toLowerCase() # trim and force lowercase
+  from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;"
+  to   = "aaaaeeeeiiiioooouuuunc------"
+  for i in [i..from.length]
+    str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i))
+  # remove accents, swap ñ for n, etc  
+  str = str.replace(/[^a-z0-9 -]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-")
+  # remove invalid chars, collapse whitespace and replace by -, collapse dashes
+  return str # unnecessary line, but for clarity
 
-DB = require '../localStorageDB.js'
+DB = window.localStorageDB
 
 
 module.exports =
@@ -27,7 +36,7 @@ module.exports =
       @db.createTable 'innovations', ['versions']
 
     if !@db.tableExists 'innovationVersions'
-      @db.createTable 'innovationVersions', ['_id', 'name', 'modules']
+      @db.createTable 'innovationVersions', ['name', 'modules']
 
     @db.commit()
 
@@ -37,7 +46,7 @@ module.exports =
         currentVersionId = innovation.versions[0]
         innovationVersions = @db.queryAll 'innovationVersions',
           query:
-            _id: currentVersionId
+            ID: currentVersionId
         innovation.currentVersion = innovationVersions[0]
         innovation.currentVersion.slug = slug innovation.currentVersion.name
       innovations
@@ -46,9 +55,9 @@ module.exports =
   methods:
     createInnovation: ->
       newInnovation = demoInnovation()
-      @db.insert 'innovationVersions', newInnovation
-      @db.insert 'innovations', 
-        versions: [newInnovation._id]
+      versionId = @db.insert 'innovationVersions', newInnovation
+      @db.insert 'innovations',
+        versions: [versionId]
       @db.commit()
       @innovations = @getInnovationsFromDB()
 
