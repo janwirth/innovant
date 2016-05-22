@@ -6,7 +6,7 @@
       .InnovationCard-title New Innovation
     .InnovationCard--clear(v-on:click='clearInnovations')
       .InnovationCard-title Clear Innovations
-    .InnovationCard(v-for='innovation in innovations' v-link='{ path: "/edit/" + innovation.currentVersion.ID + "/" + innovation.currentVersion.slug}')
+    .InnovationCard(v-for='innovation in innovations' v-link='{ path: "/edit/" + innovation.currentVersion.slug}')
       .InnovationCard-title {{{innovation.currentVersion.name}}}
 </template>
 
@@ -24,47 +24,33 @@ slug = (str) ->
   # remove invalid chars, collapse whitespace and replace by -, collapse dashes
   return str # unnecessary line, but for clarity
 
+random = (max,min=0) -> Math.floor(Math.random() * (max - min) + min)
+
+prepare = (innovation) ->
+  innovation.currentVersion.name += " #{random 100}"
+  innovation.slug = innovation.currentVersion.slug = slug defaultInnovationVersion.name
+  innovation
+
+
 DB = window.localStorageDB
 
 
+ref = new Firebase 'project-2654865812003744343.firebaseio.com'
+
 module.exports =
 
-  data: ->
-    @db = DB 'innovant', localStorage
-
-    if !@db.tableExists 'innovations'
-      @db.createTable 'innovations', ['versions']
-
-    if !@db.tableExists 'innovationVersions'
-      @db.createTable 'innovationVersions', ['name', 'modules']
-
-    @db.commit()
-
-    @getInnovationsFromDB = =>
-      innovations = @db.queryAll 'innovations'
-      for innovation in innovations
-        currentVersionId = innovation.versions[0]
-        innovationVersions = @db.queryAll 'innovationVersions',
-          query:
-            ID: currentVersionId
-        innovation.currentVersion = innovationVersions[0]
-        innovation.currentVersion.slug = slug innovation.currentVersion.name
-      innovations
-    return {innovations: @getInnovationsFromDB()}
+  firebase:
+    innovations: ref.child 'innovations'
+    innovationVersions: ref.child 'innovationVersions'
+    results: ref.child 'results'
 
   methods:
     createInnovation: ->
-      newInnovation = demoInnovation()
-      versionId = @db.insert 'innovationVersions', newInnovation
-      @db.insert 'innovations',
-        versions: [versionId]
-      @db.commit()
-      @innovations = @getInnovationsFromDB()
+      @$firebaseRefs.innovations.push
+        prepare
+          currentVersion: demoInnovation()
 
     clearInnovations: ->
-      @db.deleteRows 'innovations'
-      @db.deleteRows 'innovationVersions'
-      @db.commit()
-      @innovations = @getInnovationsFromDB()
+      @$firebaseRefs.innovations.remove()
 
 </script>

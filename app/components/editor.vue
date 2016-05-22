@@ -1,7 +1,7 @@
 <template lang="jade">
 .Editor
   .Editor-view
-    section(v-for='module in innovation.modules' class='Module--{{module.type}}').Module
+    section(v-for='module in innovation.currentVersion.modules' class='Module--{{module.type}}').Module
       .Module-content
         // render each content bit
         div(v-for='(type, value) in module.content' class='{{type}}')
@@ -44,28 +44,14 @@
 
 
 <script lang="coffee">
-DB = window.localStorageDB
 
-db = null
+ref = new Firebase 'project-2654865812003744343.firebaseio.com'
 
 module.exports =
-  data: ->
-    # init DB with each load of component
-    db =  DB 'innovant', localStorage
-    currentVersion = db.queryAll('innovationVersions', {query: {ID: @$route.params.ID}})[0]
-    data = 
-      innovation: currentVersion
-      versionID: currentVersion.ID # hack: localStorageDB screws up the id on update...
-    return data
-
+  firebase:
+    innovation: 
+      source: ref.child('innovations').orderByChild('currentVersion').orderByChild('slug').equalTo(@$route.params.innovation_slug)
+      asObject: true
   directives:
     medium: require '../directives/medium'
-
-  watch:
-    innovation:
-      deep: true
-      handler: (newState, oldState) ->
-        db.update 'innovationVersions', {ID: @versionID}, (row) -> 
-          newState
-        db.commit()
 </script>
