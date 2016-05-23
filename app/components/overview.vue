@@ -8,6 +8,8 @@
       .InnovationCard-title Clear Innovations
     .InnovationCard(v-for='innovation in innovations' v-link='{ path: "/edit/" + innovation.slug}')
       .InnovationCard-title {{{innovation.name}}}
+    .InnovationCard(v-for='innovation in innovations')
+      input(v-model='innovation.name')
 </template>
 
 <script lang="coffee">

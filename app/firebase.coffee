@@ -4,8 +4,8 @@ module.exports = ->
   firebase =
     innovation: (slug) =>
       ref = new Firebase url
-      ref.child('innovations').orderByChild('name').equalTo(slug)
-
+      ref.child('innovations').orderByChild('slug').equalTo slug
+ 
     innovations: =>
       ref = new Firebase url
       ref.child 'innovations'

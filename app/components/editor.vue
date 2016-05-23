@@ -1,15 +1,16 @@
 <template lang="jade">
-.Editor
-  .Editor-view
-    .hack(v-for='innovation in innovations')
+pre {{innovation | json}}
+.hack(v-for='innovation in innovation')
+  .Editor
+    .Editor-view(v-on:click='showData')
       section(v-for='module in innovation.modules' class='Module--{{module.type}}').Module
-        p {{innovation}}
         .Module-content
           // render each content bit
           div(v-for='(type, value) in module.content' class='{{type}}')
 
             .Heading-wrap(v-if='type == "Heading"')
               h1.Heading(v-medium='value')
+              input(v-model='value')
 
             .Text-wrap(v-if='type == "Text"')
               p.Text(v-medium='value')
@@ -51,16 +52,12 @@ db = require('../firebase.coffee')()
 
 module.exports =
 
-  data: ->
-    data =
-      innovation: [
-          name: 'hi'
-        ]
+  firebase: ->
+    data = 
+      innovation:
+        source: db.innovation @$route.params.innovation_slug
+
   directives:
     medium: require '../directives/medium'
-  ready: ->
-    @$bindAsArray 'innovation', db.innovations 'debug'
-    console.log db.innovations()
-    console.log @innovations
-    # @$bindAsObject('innovation', db.innovation(@$route.params.innovation_slug))
+
 </script>
