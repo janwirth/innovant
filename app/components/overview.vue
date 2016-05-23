@@ -13,7 +13,7 @@
 <script lang="coffee">
 innovationTemplate = require '../resources/innovationTemplate'
 
-db = require '../firebase.coffee'
+db = require('../firebase.coffee')()
 
 
 

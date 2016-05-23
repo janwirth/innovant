@@ -1,12 +1,13 @@
-ref = new Firebase 'project-2654865812003744343.firebaseio.com'
+module.exports = ->
+  url = 'project-2654865812003744343.firebaseio.com'
 
-firebase =
-  innovation: (slug) ->
-    console.log 'querying'
-    ref.child('innovations').equalTo(slug)
+  firebase =
+    innovation: (slug) =>
+      ref = new Firebase url
+      ref.child('innovations').orderByChild('name').equalTo(slug)
 
-  innovations: ->
-    console.log 'querying'
-    ref.child 'innovations'
+    innovations: =>
+      ref = new Firebase url
+      ref.child 'innovations'
 
-module.exports = firebase
+  firebase
