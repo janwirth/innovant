@@ -1,5 +1,7 @@
 @import '_settings'
 @import '_typographic'
+@import '_overview'
+@import 'innovation/_index'
 global-reset()
 border-box-html()
 base()
@@ -12,20 +14,6 @@ html
   .Module:first-child &
     t-h1()
 
-.Module--hero
-  .Module-content
-    padding vr-block(10) 0
-
-.Module
-  &-content
-    relative()
-    overflow hidden
-    text-align center
-    padding vr-block(3) 0
-  &-analytics
-    background #222
-    padding 50px 20px
-    color #aaa
 [contenteditable]:focus
   background black
   color white
@@ -34,79 +22,6 @@ html
   absolute top 0 left 0
   width 100%
   z-index -1
-
-.InnovationCard
-  background white
-  border 1px solid black
-  padding vr-block(.5)
-  cursor pointer
-  margin vr-block(1)
-  size vr-block(6)
-  border-radius .2em
-  &-wrap
-    display flex
-    flex-wrap wrap
-    justify-content flex-start
-    align-items center
-  
-  &:hover
-    background black
-    color white
-
-.InnovationCard--clear
-.InnovationCard--create
-  color white
-  @extend .InnovationCard
-
-.InnovationCard--clear
-  background red
-.InnovationCard--create
-  background green
-
-.Module-analytics
-  display flex
-  flex-direction column
-  justify-content center
-  align-items center
-  > *
-    width 100%
-    max-width vr-block(20)
-
-.Question
-  &-text
-    t-h4()
-  &-explanation
-    t-h5()
-
-$Input
-  margin vr-block(.5)
-  border 1px solid rgba(white, .1)
-  border-radius .1em
-  padding vr-block(.5, 1)
-
-.Input--range
-  @extend $Input
-  display flex
-  align-items center
-  justify-content space-around
-  .Input-element
-    range lightblue 50% 25px 2px rgba(white, .5)
-
-.Input--textarea
-  @extend $Input
-  .Input-element
-    margin vr-block(1) 0
-    width 100%
-    height vr-block(12)
-    display block
-    border-radius .1em
-    background rgba(white, .5)
-    border 1px solid white
-    t-html()
-    outline none
-    color black
-    &:focus
-      background white
 
 .Table-wrap
   margin-top vr-block(2)
@@ -132,14 +47,8 @@ $Input
   &-view
     flex-grow 2
     background white
-    transform scale(.95)
+    transform scale(.90)
     box-shadow 0 0 47px 0px rgba(0,0,0,0.29)
   &-toolbar
     background black
     width vr-block(8)
-
-.Overview
-  &-heading
-    t-h2()
-    margin vr-block(.5)
-    text-align center

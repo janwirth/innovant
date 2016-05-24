@@ -1,0 +1,99 @@
+.addModule
+.addInput
+// MODULE TYPES
+
+.Module--hero
+  .Module-content
+    padding vr-block(10) 0
+
+.Module
+  relative()
+  &-content
+    relative()
+    overflow hidden
+    text-align center
+    padding vr-block(3) 0
+  &-analytics
+    background #222
+    padding 50px 20px
+    color #aaa
+.Module
+  &-addInput
+    margin vr-block(.5) auto
+    button white
+
+// ACTION BUTTONS
+$actionButton
+  display block
+  margin vr-block(.5)
+
+.Innovation-addModule
+.Innovation-removeModule
+  @extend $actionButton
+  button black
+
+.Module-addInput
+.Module-removeInput
+  @extend $actionButton
+  margin-left auto
+  margin-right auto
+  button white
+
+.Innovation-removeModule
+.Module-removeInput
+  absolute top vr-block(-1) right vr-block(-2)
+
+.Innovation-removeModule
+  top vr-block(1)
+
+
+// ANALYTICS
+
+.Module-analytics
+  display flex
+  flex-direction column
+  justify-content center
+  align-items center
+  > *
+    width 100%
+    max-width vr-block(20)
+
+.Question
+  &-text
+    t-h4()
+  &-explanation
+    t-h5()
+
+
+// INPUT FIELDS
+
+$Input
+  margin vr-block(.5)
+  border 1px solid rgba(white, .1)
+  border-radius .1em
+  padding vr-block(.5, 1)
+  relative()
+
+.Input--range
+  @extend $Input
+  display flex
+  align-items center
+  justify-content space-around
+  .Input-element
+    range lightblue 50% 25px 2px rgba(white, .5)
+
+.Input--textarea
+  @extend $Input
+  .Input-element
+    margin vr-block(1) 0
+    width 100%
+    height vr-block(12)
+    display block
+    border-radius .1em
+    background rgba(white, .5)
+    border 1px solid white
+    t-html()
+    outline none
+    color black
+    &:focus
+      background white
