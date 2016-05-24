@@ -54,7 +54,7 @@ module.exports =
 
   methods:
     createInnovation: ->
-      newInnovation = demoInnovation()
+      newInnovation = demoInnovation.complete()
       versionId = @db.insert 'innovationVersions', newInnovation
       @db.insert 'innovations',
         versions: [versionId]
