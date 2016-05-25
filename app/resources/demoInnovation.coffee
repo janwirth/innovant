@@ -21,7 +21,7 @@ modules =
     content:
       Heading: 'Make a dent in the universe',
       Text: 'Our revolutionary concept is just great'
-      Image: 'https://images.unsplash.com/photo-1459664018906-085c36f472af?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=0790a8686cb07ac8851066ef544f1082'
+      Image: 'https://images.unsplash.com/photo-1458400411386-5ae465c4e57e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=47756f965e991bf72aa756b410929b04'
 
     analytics:
       active: true

@@ -1,0 +1,21 @@
+.Editor
+  display flex
+  background #EEE
+  padding-right vr-block(10)
+  &-view
+    flex-grow 2
+    background white
+    transform scale(.90)
+    box-shadow 0 0 47px 0px rgba(0,0,0,0.29)
+  &Toolbar
+    height 100vh
+    fixed top 0 right 0
+    background black
+    width @padding-right
+    padding vr-block(1)
+    &-title
+      t-h2()
+      color white
+    &-button
+      button white
+      margin-top vr-block(1)

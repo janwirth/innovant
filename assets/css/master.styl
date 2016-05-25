@@ -1,6 +1,8 @@
 @import '_settings'
 @import '_typographic'
 @import '_overview'
+@import '_editor'
+@import '_contentElements'
 @import 'innovation/_index'
 global-reset()
 border-box-html()
@@ -9,46 +11,6 @@ base()
 html
   t-html()
 
-.Heading
-  t-h2()
-  .Module:first-child &
-    t-h1()
-
 [contenteditable]:focus
   background black
   color white
-
-.Image
-  absolute top 0 left 0
-  width 100%
-  z-index -1
-
-.Table-wrap
-  margin-top vr-block(2)
-  display flex
-  justify-content center
-  align-items center
-  th
-    font-weight bold
-    border-bottom 1px solid black
-  td
-  th
-    padding vr-block(.4)
-    min-height vr-block(1)
-    text-align center
-    &:first-child
-      text-align left
-    &:not(:last-child)
-      border-right 1px solid black
-
-.Editor
-  display flex
-  background #EEE
-  &-view
-    flex-grow 2
-    background white
-    transform scale(.90)
-    box-shadow 0 0 47px 0px rgba(0,0,0,0.29)
-  &-toolbar
-    background black
-    width vr-block(8)

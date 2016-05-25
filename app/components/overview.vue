@@ -12,24 +12,19 @@
 
 <script lang="coffee">
 demoInnovation = require '../resources/demoInnovation'
-
-slug = (str) ->
-  str = str.replace(/^\s+|\s+$/g, "").toLowerCase() # trim and force lowercase
-  from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;"
-  to   = "aaaaeeeeiiiioooouuuunc------"
-  for i in [i..from.length]
-    str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i))
-  # remove accents, swap ñ for n, etc  
-  str = str.replace(/[^a-z0-9 -]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-")
-  # remove invalid chars, collapse whitespace and replace by -, collapse dashes
-  return str # unnecessary line, but for clarity
+utils = require '../utilities'
+slug = utils.slug
 
 DB = window.localStorageDB
 
 
 module.exports =
 
+
   data: ->
+
+    # initialize Database
+
     @db = DB 'innovant', localStorage
 
     if !@db.tableExists 'innovations'
@@ -38,12 +33,18 @@ module.exports =
     if !@db.tableExists 'innovationVersions'
       @db.createTable 'innovationVersions', ['name', 'modules']
 
+    if !@db.tableExists 'results'
+      @db.createTable 'results', ['innovationVersionID', 'sessionID', 'results']
+
     @db.commit()
+
+    # define method for reading database
 
     @getInnovationsFromDB = =>
       innovations = @db.queryAll 'innovations'
       for innovation in innovations
         currentVersionId = innovation.versions[0]
+        # read latest version of innovation
         innovationVersions = @db.queryAll 'innovationVersions',
           query:
             ID: currentVersionId
@@ -53,6 +54,8 @@ module.exports =
     return {innovations: @getInnovationsFromDB()}
 
   methods:
+
+    # read innovation template and insert it into database
     createInnovation: ->
       newInnovation = demoInnovation.complete()
       versionId = @db.insert 'innovationVersions', newInnovation
@@ -61,6 +64,7 @@ module.exports =
       @db.commit()
       @innovations = @getInnovationsFromDB()
 
+    # remove all innovations from the db
     clearInnovations: ->
       @db.deleteRows 'innovations'
       @db.deleteRows 'innovationVersions'

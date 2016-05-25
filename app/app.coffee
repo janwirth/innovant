@@ -2,14 +2,17 @@ Vue.use VueRouter
 
 router    = new VueRouter()
 
-editor    = require './components/editor.vue'
 overview  = require './components/overview.vue'
+editor    = require './components/editor.vue'
+viewer    = require './components/viewer.vue'
 
 router.map
-  '/edit/:ID/:innovation_slug':
-    component: editor
   '/':
     component: overview
+  '/edit/:ID/:innovation_slug':
+    component: editor
+  '/:ID/:innovation_slug':
+    component: viewer
 
 App = Vue.extend()
 

@@ -46,8 +46,10 @@
     template(v-for='module in defaults.modules')
       button(v-on:click='addModule(innovation, module)').Innovation-addModule Add {{$key}} module
 
-  .Editor-toolbar
-    h1(v-medium='innovation.name' mode='inline')
+  .EditorToolbar
+    h1(v-medium='innovation.name' mode='inline').EditorToolbar-title
+    button(v-link='{ path: "/" + versionID + "/" + innovation.slug}').EditorToolbar-button Publish
+    a(v-bind:download='innovation.name + ".json"' v-bind:href='resultsJSON').EditorToolbar-button Download JSON results
 </template>
 
 
@@ -55,22 +57,29 @@
 <script lang="coffee">
 innovationDefaults = require '../resources/demoInnovation.coffee'
 DB = window.localStorageDB
-console.log innovationDefaults
 
 db = null
 
+formatResults = (results) ->
+  results
+convertToURI = (data) ->
+  "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data))
 module.exports =
   data: ->
     # init DB with each load of component
     db =  DB 'innovant', localStorage
     currentVersion = db.queryAll('innovationVersions', {query: {ID: @$route.params.ID}})[0]
 
-    data = 
+    rawResults = db.queryAll('results', {query: {innovationVersion: @$route.params.ID}})
+
+
+    data =
       defaults:
         inputs: innovationDefaults.inputs
         modules: innovationDefaults.modules
       innovation: currentVersion
       versionID: currentVersion.ID # hack: localStorageDB screws up the id on update...
+      resultsJSON: convertToURI formatResults rawResults
     return data
 
   methods:
@@ -94,7 +103,7 @@ module.exports =
     innovation:
       deep: true
       handler: (newState, oldState) ->
-        db.update 'innovationVersions', {ID: @versionID}, (row) -> 
+        db.update 'innovationVersions', {ID: @versionID}, (row) ->
           newState
         db.commit()
 </script>
