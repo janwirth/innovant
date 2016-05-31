@@ -46,6 +46,9 @@ module.exports =
 
   complete: ->
     name: 'My new Product'
+    colors:
+      text: '#10CA7E'
+      background: '#000'
     modules: [
       modules.hero()
       ,

@@ -1,6 +1,10 @@
 <template lang="jade">
 .Editor
-  .Editor-view
+  .Editor-view(v-bind:style='{\
+      color: innovation.colors.text,\
+      "border-color": innovation.colors.text,\
+      background: innovation.colors.background\
+      }')
     section(v-for='module in innovation.modules' class='Module--{{module.type}}').Module
       button(v-on:click='removeModule(innovation, module)').Innovation-removeModule x
       .Module-content
@@ -50,6 +54,11 @@
     h1(v-medium='innovation.name' mode='inline').EditorToolbar-title
     button(v-link='{ path: "/" + versionID + "/" + innovation.slug}').EditorToolbar-button Publish
     a(v-bind:download='innovation.name + ".json"' v-bind:href='resultsJSON').EditorToolbar-button Download JSON results
+
+    label.EditorToolbar-label Background color
+    input(type='color' v-model='innovation.colors.background')
+    label.EditorToolbar-label Text color
+    input(type='color' v-model='innovation.colors.text')
 </template>
 
 
