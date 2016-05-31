@@ -6,21 +6,20 @@
 
 .InnovationCard
   background white
-  border 1px solid black
   padding vr-block(.5)
   cursor pointer
   margin vr-block(1)
   size vr-block(6)
   border-radius .2em
+  material-shadow 2
+  transition()
+  &:hover
+    material-shadow 4
   &-wrap
     display flex
     flex-wrap wrap
     justify-content flex-start
     align-items center
-  
-  &:hover
-    background black
-    color white
 
 .InnovationCard--clear
 .InnovationCard--create

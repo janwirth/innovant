@@ -3,7 +3,7 @@
   "description": "",
   "dependencies": {
     "autoprefixer-stylus": "0.8.x",
-    "axis": "0.5.x",
+    "axis": "git+https://github.com/franzskuffka/axis.git",
     "coffee-script": "^1.0.0",
     "coffeeify": "^2.0.1",
     "css-pipeline": "0.3.x",
