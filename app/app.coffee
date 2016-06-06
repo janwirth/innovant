@@ -9,6 +9,7 @@ viewer    = require './components/viewer.vue'
 router.map
   '/':
     component: overview
+    title: 'Übersicht'
   '/edit/:ID/:innovation_slug':
     component: editor
   '/:ID/:innovation_slug':

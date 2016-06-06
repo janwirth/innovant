@@ -1,18 +1,46 @@
 .Overview
+  min-height 100vh
   &-heading
     t-h2()
     margin vr-block(.5)
     text-align center
 
 .InnovationCard
-  background white
-  padding vr-block(.5)
+  relative()
   cursor pointer
   margin vr-block(1)
-  size vr-block(6)
-  border-radius .2em
+  size vr-block(8)
   material-shadow 2
   transition()
+  overflow hidden
+  color black
+  display flex
+  align-items center
+  justify-content center
+  &-preview
+    background yellow
+    size 100%
+    z-index -1
+    absolute top 0 left 0
+  &-title
+    absolute bottom 0 left 0
+    width 100%
+    padding vr-block(1) vr-block(.5)
+    text-align center
+  &-icon
+    size vr-block(1.5)
+    display flex
+    flex-direction column
+    justify-content center
+    align-items center
+    &:before
+      @extend $eye
+      font-size 2em
+  &-ribbon
+    size vr-block(3) vr-block(.5)
+    absolute top vr-block(.5) left vr-block(-1)
+    background black
+    transform rotate(-45deg)
   &:hover
     material-shadow 4
   &-wrap
@@ -24,9 +52,12 @@
 .InnovationCard--clear
 .InnovationCard--create
   color white
-  @extend .InnovationCard
 
 .InnovationCard--clear
   background red
+  .InnovationCard-icon:before
+    @extend $android-remove
 .InnovationCard--create
   background green
+  .InnovationCard-icon:before
+    @extend $android-create

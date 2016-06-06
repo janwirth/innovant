@@ -1,5 +1,45 @@
 extends layout
 
 block content
-  #app
-    router-view
+
+  header.Header
+
+    .Header-titleSection
+      a(href='#!').HeaderLogo
+        img(src='img/logo.png' alt='Innovant Logo').HeaderLogo-image
+
+      .HeaderTitle: span {{$route.title}}
+
+    .Header-profileSection
+
+      .Notifications
+        .Notifications-icon
+        .Notifications-counter 3
+
+      .AccountButton
+
+      .AccountDropdown
+        .AccountDropdownProfile
+          .AccountDropdownProfile-portrait
+          .AccountDropdownProfile-name Daniel Tress
+
+        ul.AccountDropdown-options
+          li.DropdownOption
+            a(href='#')
+              span.DropdownOption-title Profil Bearbeiten
+              span.DropdownOption-icon
+          li.DropdownOption
+            a(href='#')
+              span.DropdownOption-title Support
+              span.DropdownOption-icon
+          li.DropdownOption
+            a(href='#')
+              span.DropdownOption-title Passwort Ändern
+              span.DropdownOption-icon
+          li.DropdownOption
+            a(href='#')
+              span.DropdownOption-title Abmelden
+              span.DropdownOption-icon
+
+
+  router-view

@@ -1,9 +1,13 @@
+darkgrey = #292929
+
+@import '_icons'
 @import '_settings'
 @import '_typographic'
 @import '_overview'
 @import '_editor'
 @import '_contentElements'
 @import 'innovation/_index'
+
 global-reset()
 border-box-html()
 
@@ -14,3 +18,102 @@ html
 [contenteditable]:focus
   background black
   color white
+
+.Header
+  material-shadow 2
+  color white
+  width 100%
+  height vr-block(2)
+  background darkgrey
+  display flex
+  justify-content space-between
+
+  &-titleSection
+  &-profileSection
+    display flex
+    align-items center
+    margin 0 vr-block(1)
+  &Title
+    margin 0 vr-block(1)
+    span
+      t-h5()
+  &Logo
+    display flex
+    align-items center
+    padding 0 vr-block(1)
+    height @height
+    background yellow
+    &-image
+      height vr-block(1)
+      margin-right vr-block(-.5)
+
+.Notifications
+  relative()
+  margin-right vr-block(1)
+  &-icon
+    border-radius 50%
+    background white
+    display block
+    size vr-block(1)
+  &-counter
+    color black
+    line-height vr-block(1)
+    width vr-block(1)
+    text-align center
+    absolute top 0 right 0
+
+.Account
+  &Button
+    background white
+    size vr-block(1)
+    border-radius 50%
+    display flex
+    justify-content center
+    align-items center
+    flex-direction column
+    &:before
+      color darkgrey
+      display block
+      @extend $person
+      text-align center
+  &Dropdown
+    material-shadow 4
+    fixed top vr-block(2.5) right vr-block(.5)
+    background darkgrey
+    color white
+    width vr-block(9)
+
+    &:before
+      content ''
+      triangle 'up' vr-block(.5) darkgrey
+      absolute top vr-block(-.5) right vr-block(.5)
+
+    &Profile
+      display flex
+      align-items center
+      border-bottom 1px solid grey
+      &-portrait
+        display flex
+        justify-content center
+        align-items center
+        flex-direction column
+        size vr-block(2)
+        margin vr-block(.5)
+        background yellow
+        border-radius 50%
+        &:before
+          color darkgrey
+          font-size 2em
+          display block
+          @extend $person
+          text-align center
+
+.DropdownOption
+  > a
+    display block
+    padding vr-block(.5)
+    color white
+    text-decoration none
+    &:hover
+      background yellow
+      color darkgrey

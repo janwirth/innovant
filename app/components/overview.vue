@@ -1,13 +1,22 @@
 <template lang="jade">
 .Overview
-  .Overview-heading Overview
   .InnovationCard-wrap
-    .InnovationCard--create(v-on:click='createInnovation')
-      .InnovationCard-title New Innovation
-    .InnovationCard--clear(v-on:click='clearInnovations')
-      .InnovationCard-title Clear Innovations
+
+    .InnovationCard.InnovationCard--create(v-on:click='createInnovation')
+      .InnovationCard-icon(src='img/icons/add.svg')
+      .InnovationCard-title Neue Innovation
+
+    .InnovationCard.InnovationCard--clear(v-on:click='clearInnovations')
+      .InnovationCard-icon(src='img/icons/delete.svg')
+      .InnovationCard-title [DEV: clear all innovations]
+
     .InnovationCard(v-for='innovation in innovations' v-link='{ path: "/edit/" + innovation.currentVersion.ID + "/" + innovation.currentVersion.slug}')
+      .InnovationCard-icon(src='img/icons/view.svg')
       .InnovationCard-title {{{innovation.currentVersion.name}}}
+      .InnovationCard-badge
+      .InnovationCard-ribbon
+      .InnovationCard-preview
+
 </template>
 
 <script lang="coffee">
