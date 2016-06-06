@@ -1,0 +1,123 @@
+.Header
+  material-shadow 2
+  color white
+  width 100%
+  height vr-block(2)
+  background darkgrey
+  display flex
+  justify-content space-between
+  fixed top 0 left 0
+  z-index 100
+
+  &-titleSection
+  &-profileSection
+    display flex
+    align-items center
+    margin 0 vr-block(1)
+  &Title
+    margin 0 vr-block(1)
+    span
+      t-h5()
+  &Logo
+    display flex
+    align-items center
+    padding 0 vr-block(1)
+    height @height
+    background yellow
+    &-image
+      height vr-block(1)
+      margin-right vr-block(-.5)
+  &Spacer
+    height vr-block(2)
+    width 100%
+
+.Notifications
+  relative()
+  margin-right vr-block(.5)
+  cursor pointer
+  &.is-new &-icon
+    background yellow
+  &-icon
+    border-radius 50%
+    background white
+    display block
+    size vr-block(1)
+  &-counter
+    color black
+    line-height vr-block(1)
+    width vr-block(1)
+    text-align center
+    absolute top 0 right 0
+
+.Account
+  &Button
+    background white
+    size vr-block(1)
+    border-radius 50%
+    display flex
+    justify-content center
+    align-items center
+    flex-direction column
+    cursor pointer
+    &:hover
+      background yellow
+      transition .1s
+    &:before
+      color darkgrey
+      display block
+      @extend $person
+      text-align center
+  &Dropdown
+    fixed top vr-block(3) right vr-block(.5)
+    background darkgrey
+    color white
+    width vr-block(9)
+
+    opacity 0
+    material-shadow 1
+    pointer-events none
+
+    transform translateY(vr-block(-.5))
+    transition all .3s $ease-in-swift
+    &.is-expanded
+      pointer-events all
+      transition-timing-function $ease-out-swift
+      display block
+      opacity 1
+      transform translateY(0)
+      material-shadow 4
+
+    &:before
+      content ''
+      triangle 'up' vr-block(.5) darkgrey
+      absolute top vr-block(-.5) right vr-block(.5)
+
+    &Profile
+      display flex
+      align-items center
+      border-bottom 1px solid grey
+      &-portrait
+        display flex
+        justify-content center
+        align-items center
+        flex-direction column
+        size vr-block(2)
+        margin vr-block(.5)
+        background yellow
+        border-radius 50%
+        &:before
+          color darkgrey
+          font-size 2em
+          display block
+          @extend $person
+          text-align center
+
+.DropdownOption
+  > a
+    display block
+    padding vr-block(.5)
+    color white
+    text-decoration none
+    &:hover
+      background yellow
+      color darkgrey

@@ -2,9 +2,12 @@ Vue.use VueRouter
 
 router    = new VueRouter()
 
+header    = require './components/header.vue'
 overview  = require './components/overview.vue'
 editor    = require './components/editor.vue'
 viewer    = require './components/viewer.vue'
+
+Vue.component 'headbar', header
 
 router.map
   '/':
@@ -16,5 +19,7 @@ router.map
     component: viewer
 
 App = Vue.extend()
+
+
 
 router.start(App, '#app')
