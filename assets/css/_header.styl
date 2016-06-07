@@ -69,7 +69,7 @@
       text-align center
   &Dropdown
     fixed top vr-block(3) right vr-block(.5)
-    background darkgrey
+    background grey
     color white
     width vr-block(9)
 
@@ -79,6 +79,7 @@
 
     transform translateY(vr-block(-.5))
     transition all .3s $ease-in-swift
+
     &.is-expanded
       pointer-events all
       transition-timing-function $ease-out-swift
@@ -89,7 +90,7 @@
 
     &:before
       content ''
-      triangle 'up' vr-block(.5) darkgrey
+      triangle 'up' vr-block(.5) grey
       absolute top vr-block(-.5) right vr-block(.5)
 
     &Profile

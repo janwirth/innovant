@@ -5,8 +5,9 @@
       "border-color": innovation.colors.text,\
       background: innovation.colors.background\
       }')
+
     section(v-for='module in innovation.modules' class='Module--{{module.type}}').Module
-      button(v-on:click='removeModule(innovation, module)').Innovation-removeModule x
+      button(v-on:click='removeModule(innovation, module)').Innovation-removeModule
       .Module-content
         // render each content bit
         div(v-for='(type, value) in module.content' class='{{type}}')
@@ -22,6 +23,7 @@
 
           .Table-wrap(v-if='type == "Table"')
             | {{{value}}}
+      button(v-on:click='toggleAnalytics(innovation, module)').Innovation-toggleAnalytics Fragen ein- oder ausschalten
 
 
       // render question
@@ -51,28 +53,49 @@
       button(v-on:click='addModule(innovation, module)').Innovation-addModule Add {{$key}} module
 
   .EditorToolbar
-    h1(v-medium='innovation.name' mode='inline').EditorToolbar-title
-    button(v-link='{ path: "/" + versionID + "/" + innovation.slug}').EditorToolbar-button Publish
-    a(v-bind:download='innovation.name + ".json"' v-bind:href='resultsJSON').EditorToolbar-button Download JSON results
+    .InnovationInfo
+      h1(v-medium='innovation.name' mode='inline').InnovationInfo-title
+      p(v-medium='innovation.description' mode='partial').InnovationInfo-description
 
-    label.EditorToolbar-label Background color
-    input(type='color' v-model='innovation.colors.background')
-    label.EditorToolbar-label Text color
-    input(type='color' v-model='innovation.colors.text')
+    .EditorState
+      .EditorState-tab.is-active Develop
+      .EditorState-tab Deploy
+
+    .Editor-colorPanel
+      .Editor-colorInput
+        label.EditorToolbar-label Hintergrundfarbe
+        input(type='color' v-model='innovation.colors.background').Editor-colorInput
+      .Editor-colorInput
+        label.EditorToolbar-label Textfarbe
+        input(type='color' v-model='innovation.colors.text').Editor-colorInput
+
+    .Editor-modulePanel
+      .ModuleSection(v-for='(name, modules) in innovationModules')
+        .ModuleSection-heading {{name}}
+        .ModuleSection-modules
+          .ModuleTemplate(v-for='module in modules')
+
+
+    // button(v-link='{ path: "/" + versionID + "/" + innovation.slug}').EditorToolbar-button Publish
+    // a(v-bind:download='innovation.name + ".json"' v-bind:href='resultsJSON').EditorToolbar-button Download JSON results
 </template>
 
 
 
 <script lang="coffee">
 innovationDefaults = require '../resources/demoInnovation.coffee'
+innovationModules = require '../resources/modules.coffee'
+
 DB = window.localStorageDB
 
 db = null
 
 formatResults = (results) ->
   results
+
 convertToURI = (data) ->
   "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data))
+
 module.exports =
   data: ->
     # init DB with each load of component
@@ -87,6 +110,7 @@ module.exports =
         inputs: innovationDefaults.inputs
         modules: innovationDefaults.modules
       innovation: currentVersion
+      innovationModules: innovationModules
       versionID: currentVersion.ID # hack: localStorageDB screws up the id on update...
       resultsJSON: convertToURI formatResults rawResults
     return data
@@ -97,6 +121,9 @@ module.exports =
 
     addInput: (module, input) ->
       module.analytics.inputs.push input()
+
+    toggleAnalytics: (innovation, module) ->
+      module.analytics.active = !module.analytics.active
 
     removeInput: (module, input) ->
       module.analytics.inputs.$remove input

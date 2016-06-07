@@ -22,14 +22,32 @@
 
 // ACTION BUTTONS
 $actionButton
+  outline none
   display block
   margin vr-block(.5)
   z-index 100
+  material-shadow 2
+  transition()
+  &:hover
+    material-shadow 5
 
 .Innovation-addModule
 .Innovation-removeModule
   @extend $actionButton
   button black
+  &:hover
+    background yellow
+    color black
+.Innovation-toggleAnalytics
+  @extend $actionButton
+  button grey
+  &:hover
+    background yellow
+    color black
+
+.Innovation-removeModule
+  &:before
+    @extend $trash-b
 
 .Module-addInput
 .Module-removeInput

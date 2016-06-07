@@ -14,6 +14,7 @@ router.map
     component: overview
     title: 'Übersicht'
   '/edit/:ID/:innovation_slug':
+    title: 'Bearbeiten'
     component: editor
   '/:ID/:innovation_slug':
     component: viewer

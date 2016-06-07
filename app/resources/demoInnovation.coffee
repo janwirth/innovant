@@ -8,8 +8,8 @@ tableHtml =
 inputs =
   range: ->
     type: 'range'
-    label: 'ugly'
-    labelHigh: 'attractive'
+    label: 'unattraktiv'
+    labelHigh: 'attraktiv'
   textarea: ->
     type: 'textarea'
 
@@ -19,15 +19,15 @@ modules =
     type: 'hero'
 
     content:
-      Heading: 'Make a dent in the universe',
-      Text: 'Our revolutionary concept is just great'
+      Heading: 'Das wird die Welt verändern',
+      Text: 'Überzeugen Sie sich von unserem neuen Produkt'
       Image: 'https://images.unsplash.com/photo-1458400411386-5ae465c4e57e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=47756f965e991bf72aa756b410929b04'
 
     analytics:
       active: true
       question:
-        text: 'How attractive do you find this design?'
-        explanation: 'Please do not consider the color scheme.'
+        text: 'Wie gefällt Ihnen das Design?'
+        explanation: 'Bitte gehe Sie dabei auch auf die Farbgebung ein.'
       inputs: [
         inputs.range()
         ,
@@ -37,15 +37,36 @@ modules =
   table: ->
     type: 'table'
     content:
-      Heading: 'Compare our features',
+      Heading: 'Vergleichen Sie unsere Produktmerkale!',
       Table: tableHtml
     analytics:
       active: false
+      question:
+        text: 'Wie gefällt Ihnen die Preisgestaltung?'
+        explanation: 'Weitere Hinweise.'
+      inputs: [
+        inputs.range()
+        ,
+        inputs.textarea()
+        ]
 
 module.exports =
 
   complete: ->
-    name: 'My new Product'
+    name: 'Bahnbrechende Innovation'
+    description: 'Eine kurze Beschreibung'
+    colors:
+      text: '#10CA7E'
+      background: '#000'
+    modules: [
+      modules.hero()
+      ,
+      modules.table()
+    ]
+
+  triton: ->
+    name: 'Triton Schnorchel'
+    description: 'Eine kurze Beschreibung'
     colors:
       text: '#10CA7E'
       background: '#000'
