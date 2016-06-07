@@ -1,4 +1,5 @@
 Vue.use VueRouter
+Vue.use VueDnd
 
 router    = new VueRouter()
 

@@ -1,56 +1,60 @@
 <template lang="jade">
 .Editor
-  .Editor-view(v-bind:style='{\
-      color: innovation.colors.text,\
-      "border-color": innovation.colors.text,\
-      background: innovation.colors.background\
-      }')
+  .Editor-view
 
-    section(v-for='module in innovation.modules' class='Module--{{module.type}}').Module
-      button(v-on:click='removeModule(innovation, module)').Innovation-removeModule
-      .Module-content
-        // render each content bit
-        div(v-for='(type, value) in module.content' class='{{type}}')
+    template(v-for='module in innovation.modules')
 
-          .Heading-wrap(v-if='type == "Heading"')
-            h1.Heading(v-medium='value')
+      section.Module(class='Module--{{module.type}}' v-bind:style='{\
+        background: innovation.colors.background\
+        color: innovation.colors.text,\
+        "border-color": innovation.colors.text,\
+        }')
 
-          .Text-wrap(v-if='type == "Text"')
-            p.Text(v-medium='value')
+        .DropZone(v-dropzone:module="insertModule($dropdata.module, $index)")
+        button(v-on:click='removeModule(innovation, module)').Innovation-removeModule
+        .Module-content
+          // render each content bit
+          div(v-for='(type, value) in module.content' class='{{type}}')
 
-          .Image-wrap(v-if='type == "Image"')
-            img(v-bind:src='value').Image
+            .Heading-wrap(v-if='type == "Heading"')
+              h1.Heading(v-medium='value')
 
-          .Table-wrap(v-if='type == "Table"')
-            | {{{value}}}
-      button(v-on:click='toggleAnalytics(innovation, module)').Innovation-toggleAnalytics Fragen ein- oder ausschalten
+            .Text-wrap(v-if='type == "Text"')
+              p.Text(v-medium='value')
+
+            .Image-wrap(v-if='type == "Image"')
+              img(v-bind:src='value').Image
+
+            .Table-wrap(v-if='type == "Table"')
+              | {{{value}}}
+        button(v-on:click='toggleAnalytics(innovation, module)').Innovation-toggleAnalytics Fragen ein- oder ausschalten
 
 
-      // render question
-      .Module-analytics(v-if='module.analytics.active')
-        .Question
-          .Question-text(v-medium='module.analytics.question.text')
-          .Question-explanation(v-medium='module.analytics.question.explanation')
+        // render question
+        .Module-analytics(v-if='module.analytics.active')
+          .Question
+            .Question-text(v-medium='module.analytics.question.text')
+            .Question-explanation(v-medium='module.analytics.question.explanation')
 
-        // render input fields
-        template(v-for='input in module.analytics.inputs' )
+          // render input fields
+          template(v-for='input in module.analytics.inputs' )
 
-          div(v-if='input.type == "range"' class='Input--{{input.type}}')
-            .Input-labelLow(v-medium='input.label')
-            input(type='range').Input-element
-            .Input-labelHigh(v-medium='input.labelHigh')
-            button(v-on:click='removeInput(module, input)').Module-removeInput x
+            div(v-if='input.type == "range"' class='Input--{{input.type}}')
+              .Input-labelLow(v-medium='input.label')
+              input(type='range').Input-element
+              .Input-labelHigh(v-medium='input.labelHigh')
+              button(v-on:click='removeInput(module, input)').Module-removeInput x
 
-          div(v-if='input.type == "textarea"' class='Input--{{input.type}}')
-            .Input-label(v-medium='input.label')
-            textarea.Input-element
-            button(v-on:click='removeInput(module, input)').Module-removeInput x
+            div(v-if='input.type == "textarea"' class='Input--{{input.type}}')
+              .Input-label(v-medium='input.label')
+              textarea.Input-element
+              button(v-on:click='removeInput(module, input)').Module-removeInput x
 
-        template(v-for='input in defaults.inputs')
-          button(v-on:click='addInput(module, input)').Module-addInput Add {{$key}} field
+          template(v-for='input in defaults.inputs')
+            button(v-on:click='addInput(module, input)').Module-addInput Add {{$key}} field
 
-    template(v-for='module in defaults.modules')
-      button(v-on:click='addModule(innovation, module)').Innovation-addModule Add {{$key}} module
+      section.Module.Module--hero
+        .DropZone(v-dropzone:module="insertModule($dropdata.module, innovation.modules.length)")
 
   .EditorToolbar
     .InnovationInfo
@@ -73,7 +77,7 @@
       .ModuleSection(v-for='(name, modules) in innovationModules')
         .ModuleSection-heading {{name}}
         .ModuleSection-modules
-          .ModuleTemplate(v-for='module in modules')
+          .ModuleTemplate(v-for='module in modules' v-draggable:module="{module: module, index: $index}")
 
 
     // button(v-link='{ path: "/" + versionID + "/" + innovation.slug}').EditorToolbar-button Publish
@@ -116,8 +120,9 @@ module.exports =
     return data
 
   methods:
-    addModule: (innovation, module) ->
-      innovation.modules.push module()
+    insertModule: (module, index) ->
+      console.log module, index
+      @innovation.modules.splice index, 0, module
 
     addInput: (module, input) ->
       module.analytics.inputs.push input()

@@ -3,7 +3,7 @@
   padding-right vr-block(14)
   &-view
     flex-grow 2
-    transform scale(.90)
+    margin vr-block(2) vr-block(3) 
     box-shadow 0 0 47px 0px rgba(0,0,0,0.29)
   &Toolbar
     overflow-y scroll
@@ -78,3 +78,18 @@
     text-overflow ellipsis
     &:focus
       max-height vr-block(8)
+
+
+// STATES
+.DropZone
+  transition()
+  z-index 100
+  height 0
+  absolute()
+  width 100%
+  background yellow
+
+.Editor.is-dragging
+  .DropZone
+    height vr-block(3)
+    background yellow
