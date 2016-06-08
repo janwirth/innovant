@@ -4,11 +4,9 @@
 
     template(v-for='module in innovation.modules')
 
-      section.Module(class='Module--{{module.type}}' v-bind:style='{\
-        background: innovation.colors.background\
+      section.Module(class='Module--{{module.type}}' v-bind:style='{background: innovation.colors.background, \
         color: innovation.colors.text,\
-        "border-color": innovation.colors.text,\
-        }')
+        "border-color": innovation.colors.text}')
 
         .DropZone(v-dropzone:module="insertModule($dropdata.module, $index)")
         button(v-on:click='removeModule(innovation, module)').Innovation-removeModule
@@ -60,12 +58,14 @@
     .InnovationInfo
       h1(v-medium='innovation.name' mode='inline').InnovationInfo-title
       p(v-medium='innovation.description' mode='partial').InnovationInfo-description
+      p(v-if='innovation.published').InnovationInfo-description Publiziert und schreibgeschützt
+      button(v-on:click='publish()' v-if='!innovation.published').PublishButton Publizieren
 
     .EditorState
-      .EditorState-tab.is-active Develop
-      .EditorState-tab Deploy
+      div(v-if='!innovation.published').EditorState-tab.is-active Entwickeln
+      div(v-if='innovation.published').EditorState-tab Analyse
 
-    .Editor-colorPanel
+    .Editor-colorPanel(v-if='!innovation.published')
       .Editor-colorInput
         label.EditorToolbar-label Hintergrundfarbe
         input(type='color' v-model='innovation.colors.background').Editor-colorInput
@@ -73,15 +73,15 @@
         label.EditorToolbar-label Textfarbe
         input(type='color' v-model='innovation.colors.text').Editor-colorInput
 
-    .Editor-modulePanel
+    div(v-if='!innovation.published').Editor-modulePanel
       .ModuleSection(v-for='(name, modules) in innovationModules')
         .ModuleSection-heading {{name}}
         .ModuleSection-modules
           .ModuleTemplate(v-for='module in modules' v-draggable:module="{module: module, index: $index}")
 
-
-    // button(v-link='{ path: "/" + versionID + "/" + innovation.slug}').EditorToolbar-button Publish
-    // a(v-bind:download='innovation.name + ".json"' v-bind:href='resultsJSON').EditorToolbar-button Download JSON results
+    div(v-if='innovation.published').Editor-analysisPanel
+      a(v-bind:href='viewUrl').EditorToolbar-button Umfrage zeigen
+      a(v-bind:download='innovation.name + ".json"' v-bind:href='resultsJSON').EditorToolbar-button Ergebnisse Herunterladen
 </template>
 
 
@@ -117,6 +117,7 @@ module.exports =
       innovationModules: innovationModules
       versionID: currentVersion.ID # hack: localStorageDB screws up the id on update...
       resultsJSON: convertToURI formatResults rawResults
+      viewUrl: '/#!/' + currentVersion.ID + '/' + currentVersion.slug
     return data
 
   methods:
@@ -136,6 +137,13 @@ module.exports =
     removeModule: (innovation, module) ->
       innovation.modules.$remove module
 
+    publish: ->
+      @innovation.published = true
+      console.log @innovation, @versionID
+      db.update 'innovationVersions', {ID: @versionID}, (row) =>
+        @innovation
+      db.commit()
+
 
   directives:
     medium: require '../directives/medium'
@@ -144,7 +152,8 @@ module.exports =
     innovation:
       deep: true
       handler: (newState, oldState) ->
-        db.update 'innovationVersions', {ID: @versionID}, (row) ->
-          newState
-        db.commit()
+        if !@innovation.published
+          db.update 'innovationVersions', {ID: @versionID}, (row) ->
+            newState
+          db.commit()
 </script>

@@ -40,7 +40,7 @@ module.exports =
       @db.createTable 'innovations', ['versions']
 
     if !@db.tableExists 'innovationVersions'
-      @db.createTable 'innovationVersions', ['name', 'colors', 'modules']
+      @db.createTable 'innovationVersions', ['name', 'colors', 'modules', 'description', 'published']
 
     if !@db.tableExists 'results'
       @db.createTable 'results', ['innovationVersionID', 'sessionID', 'results']

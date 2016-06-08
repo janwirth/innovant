@@ -9,6 +9,7 @@ module.exports =
   complete: ->
     name: 'Bahnbrechende Innovation'
     description: 'Eine kurze Beschreibung'
+    published: false
     colors:
       text: '#10CA7E'
       background: '#000'
@@ -21,6 +22,7 @@ module.exports =
   triton: ->
     name: 'Triton Schnorchel'
     description: 'Tauchen ohne O2'
+    published: false
     colors:
       text: '#10CA7E'
       background: '#000'
