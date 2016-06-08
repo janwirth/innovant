@@ -44,7 +44,6 @@ module.exports =
 
     if !@db.tableExists 'results'
       @db.createTable 'results', ['innovationVersionID', 'sessionID', 'results']
-      @innovations = @getInnovationsFromDB()
 
     # insert triton
     newInnovation = demoInnovation.triton()
