@@ -1,6 +1,10 @@
 <template lang="jade">
 .Viewer
-    section(v-for='module in innovation.modules' class='Module--{{module.type}}').Module
+
+    section.Module(v-for='module in innovation.modules' class='Module--{{module.type}}' v-bind:style='{background: innovation.colors.background,\
+      color: innovation.colors.text,\
+      "border-color": innovation.colors.text}')
+
       .Module-content
         // render each content bit
         div(v-for='(type, value) in module.content' class='{{type}}')
