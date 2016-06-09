@@ -1,8 +1,10 @@
 <template lang="jade">
 .Viewer
+    link(v-bind:href='innovation.font.url' rel='stylesheet' type='text/css')
 
     section.Module(v-for='module in innovation.modules' class='Module--{{module.type}}' v-bind:style='{background: innovation.colors.background,\
       color: innovation.colors.text,\
+      "font-family": innovation.font.name,\
       "border-color": innovation.colors.text}')
 
       .Module-content

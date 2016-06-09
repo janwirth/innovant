@@ -40,16 +40,16 @@ module.exports =
       @db.createTable 'innovations', ['versions']
 
     if !@db.tableExists 'innovationVersions'
-      @db.createTable 'innovationVersions', ['name', 'colors', 'modules', 'description', 'published']
+      console.log @db.createTable 'innovationVersions', ['name', 'description', 'font', 'published', 'colors', 'modules', ]
 
     if !@db.tableExists 'results'
       @db.createTable 'results', ['innovationVersionID', 'sessionID', 'results']
 
-    # insert triton
-    newInnovation = demoInnovation.triton()
-    versionId = @db.insert 'innovationVersions', newInnovation
-    @db.insert 'innovations',
-      versions: [versionId]
+      # insert triton
+      newInnovation = demoInnovation.triton()
+      versionId = @db.insert 'innovationVersions', newInnovation
+      @db.insert 'innovations',
+        versions: [versionId]
 
     @db.commit()
 

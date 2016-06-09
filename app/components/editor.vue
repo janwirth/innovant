@@ -1,11 +1,13 @@
 <template lang="jade">
 .Editor
   .Editor-view
+    link(v-bind:href='innovation.font.url' rel='stylesheet' type='text/css')
 
     template(v-for='module in innovation.modules')
 
       section.Module(class='Module--{{module.type}}' v-bind:style='{background: innovation.colors.background, \
         color: innovation.colors.text,\
+        "font-family": innovation.font.name,\
         "border-color": innovation.colors.text}')
 
         .DropZone(v-dropzone:module="insertModule($dropdata.module, $index)")
@@ -65,10 +67,22 @@
       div(v-if='!innovation.published').EditorState-tab.is-active Entwickeln
       div(v-if='innovation.published').EditorState-tab Analyse
 
+    .Editor-fontPanel(v-if='!innovation.published')
+      .Editor-colorInput
+        label.EditorToolbar-label Schriftart
+
+
+        select.form-control(name='template', v-model='innovation.font')
+          option(v-for='font in fonts', :selected='{{font.name == innovation.font.name}}', v-bind:value='font')
+            | {{font.name}}
+
     .Editor-colorPanel(v-if='!innovation.published')
+
+
       .Editor-colorInput
         label.EditorToolbar-label Hintergrundfarbe
         input(type='color' v-model='innovation.colors.background').Editor-colorInput
+
       .Editor-colorInput
         label.EditorToolbar-label Textfarbe
         input(type='color' v-model='innovation.colors.text').Editor-colorInput
@@ -89,6 +103,7 @@
 <script lang="coffee">
 innovationDefaults = require '../resources/demoInnovation.coffee'
 innovationModules = require '../resources/modules.coffee'
+fonts = require '../resources/fonts.coffee'
 
 DB = window.localStorageDB
 
@@ -108,14 +123,18 @@ module.exports =
 
     rawResults = db.queryAll('results', {query: {innovationVersion: @$route.params.ID}})
 
+    console.log currentVersion
+
 
     data =
+      fonts: fonts
+
       defaults:
         inputs: innovationDefaults.inputs
-        modules: innovationDefaults.modules
+
       innovation: currentVersion
       innovationModules: innovationModules
-      versionID: currentVersion.ID # hack: localStorageDB screws up the id on update...
+      versionID: currentVersion.ID # hack: localStorageDB deletes the in-storage the id on update...
       resultsJSON: convertToURI formatResults rawResults
       viewUrl: '/#!/' + currentVersion.ID + '/' + currentVersion.slug
     return data
@@ -139,7 +158,6 @@ module.exports =
 
     publish: ->
       @innovation.published = true
-      console.log @innovation, @versionID
       db.update 'innovationVersions', {ID: @versionID}, (row) =>
         @innovation
       db.commit()
@@ -154,6 +172,8 @@ module.exports =
       handler: (newState, oldState) ->
         if !@innovation.published
           db.update 'innovationVersions', {ID: @versionID}, (row) ->
-            newState
-          db.commit()
+            console.log 'updating'
+            # newState.font.name = 'Helvetica'
+            return newState
+          console.log db.commit()
 </script>

@@ -3,6 +3,7 @@
 
 modules = require './modules'
 inputs = require './inputs'
+fonts = require './fonts'
 
 module.exports =
 
@@ -10,6 +11,7 @@ module.exports =
     name: 'Bahnbrechende Innovation'
     description: 'Eine kurze Beschreibung'
     published: false
+    font: fonts[2]
     colors:
       text: '#10CA7E'
       background: '#000'
@@ -23,6 +25,7 @@ module.exports =
     name: 'Triton Schnorchel'
     description: 'Tauchen ohne O2'
     published: false
+    font: fonts[0]
     colors:
       text: '#10CA7E'
       background: '#000'
