@@ -63,6 +63,8 @@
       p(v-if='innovation.published').InnovationInfo-description Publiziert und schreibgeschützt
       button(v-on:click='publish()' v-if='!innovation.published').PublishButton Publizieren
 
+    a(v-bind:href='viewUrl' target='_blank' v-if='innovation.published').Button--showSurvey Umfrage zeigen
+
     .EditorState
       div(v-if='!innovation.published').EditorState-tab.is-active Entwickeln
       div(v-if='innovation.published').EditorState-tab Analyse
@@ -73,7 +75,7 @@
 
 
         select.form-control(name='template', v-model='innovation.font')
-          option(v-for='font in fonts', :selected='{{font.name == innovation.font.name}}', v-bind:value='font')
+          option(v-for='font in fonts', v-bind:selected='font.name == innovation.font.name', v-bind:value='font')
             | {{font.name}}
 
     .Editor-colorPanel(v-if='!innovation.published')
@@ -93,27 +95,26 @@
         .ModuleSection-modules
           .ModuleTemplate(v-for='module in modules' v-draggable:module="{module: module, index: $index}")
 
+
     div(v-if='innovation.published').Editor-analysisPanel
-      a(v-bind:href='viewUrl').EditorToolbar-button Umfrage zeigen
-      a(v-bind:download='innovation.name + ".json"' v-bind:href='resultsJSON').EditorToolbar-button Ergebnisse Herunterladen
+      .EditorPanelHeading Ergebnisse Herunterladen
+      a(v-bind:download='innovation.name + ".json"' v-bind:href='results.JSON').Button--resultsDownload JSONresults
+      a(v-bind:download='innovation.name + ".csv"' v-bind:href='results.CSV').Button--resultsDownload CSV
+      a(v-bind:download='innovation.name + ".csv"' v-bind:href='results.raw').Button--resultsDownload Rohdaten
 </template>
 
 
 
 <script lang="coffee">
-innovationDefaults = require '../resources/demoInnovation.coffee'
-innovationModules = require '../resources/modules.coffee'
-fonts = require '../resources/fonts.coffee'
+innovationDefaults = require '../resources/demoInnovation'
+innovationModules = require '../resources/modules'
+fonts = require '../resources/fonts'
+DataHelper = require('../utilities').DataHelper
 
 DB = window.localStorageDB
 
 db = null
 
-formatResults = (results) ->
-  results
-
-convertToURI = (data) ->
-  "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data))
 
 module.exports =
   data: ->
@@ -121,10 +122,7 @@ module.exports =
     db =  DB 'innovant', localStorage
     currentVersion = db.queryAll('innovationVersions', {query: {ID: @$route.params.ID}})[0]
 
-    rawResults = db.queryAll('results', {query: {innovationVersion: @$route.params.ID}})
-
-    console.log currentVersion
-
+    results = new DataHelper db.queryAll('results', {query: {innovationVersion: @$route.params.ID}})
 
     data =
       fonts: fonts
@@ -135,8 +133,12 @@ module.exports =
       innovation: currentVersion
       innovationModules: innovationModules
       versionID: currentVersion.ID # hack: localStorageDB deletes the in-storage the id on update...
-      resultsJSON: convertToURI formatResults rawResults
+      results:
+        JSON: results.toJsonString()
+        CSV: results.toCsvString()
+        raw:  results.getRaw()
       viewUrl: '/#!/' + currentVersion.ID + '/' + currentVersion.slug
+    console.log data
     return data
 
   methods:
