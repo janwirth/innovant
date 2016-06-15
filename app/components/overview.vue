@@ -10,9 +10,11 @@
       .InnovationCard-icon(src='img/icons/delete.svg')
       .InnovationCard-title [DEV: clear all innovations]
 
-    .InnovationCard(v-for='innovation in innovations' v-link='{ path: "/edit/" + innovation.currentVersion.ID + "/" + innovation.currentVersion.slug}')
+    .InnovationCard(v-for='innovation in innovations' v-link='{ path: "/edit/" + innovation.currentVersion.ID + "/" + innovation.currentVersion.slug}' v-bind:style='{background: innovation.currentVersion.colors.background,\
+        color: innovation.currentVersion.colors.text,\
+        "border-color": innovation.currentVersion.colors.text}')
       .InnovationCard-icon(src='img/icons/view.svg')
-      .InnovationCard-title {{{innovation.currentVersion.name}}}
+      .InnovationCard-title {{innovation.currentVersion.name}}
       .InnovationCard-badge
       .InnovationCard-ribbon
       .InnovationCard-preview
