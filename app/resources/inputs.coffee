@@ -1,7 +1,8 @@
 module.exports =
   range: ->
     type: 'range'
-    label: 'unattraktiv'
-    labelHigh: 'attraktiv'
+    label: 'Pol A'
+    labelHigh: 'Pol B'
   textarea: ->
+    label: 'Feldspezifische Frage'
     type: 'textarea'
