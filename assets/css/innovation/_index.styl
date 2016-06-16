@@ -44,9 +44,14 @@ $actionButton
 .Innovation-removeModule
   @extend $actionButton
   button black
+.Innovation-addModule
   &:hover
     background yellow
     color black
+.Innovation-removeModule
+  &:hover
+    background red
+    color white
 .Innovation-toggleAnalytics
   @extend $actionButton
   button grey
@@ -56,7 +61,7 @@ $actionButton
 
 .Innovation-removeModule
   &:before
-    @extend $trash-b
+    @extend $close
 
 .Module-addInput
 .Module-removeInput
@@ -64,6 +69,13 @@ $actionButton
   margin-left auto
   margin-right auto
   button white
+
+.Module-removeInput
+  &:hover
+    background red
+    color white
+  &:before
+    @extend $close
 
 .Innovation-removeModule
 .Module-removeInput

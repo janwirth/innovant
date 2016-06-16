@@ -44,12 +44,12 @@
               .Input-labelLow(v-medium='input.label')
               input(type='range').Input-element
               .Input-labelHigh(v-medium='input.labelHigh')
-              button(v-on:click='removeInput(module, input)').Module-removeInput x
+              button(v-on:click='removeInput(module, input)').Module-removeInput
 
             div(v-if='input.type == "textarea"' class='Input--{{input.type}}')
               .Input-label(v-medium='input.label')
               textarea.Input-element
-              button(v-on:click='removeInput(module, input)').Module-removeInput x
+              button(v-on:click='removeInput(module, input)').Module-removeInput
 
           template(v-for='input in defaults.inputs')
             button(v-on:click='addInput(module, input)').Module-addInput Add {{$key}} field
