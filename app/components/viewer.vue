@@ -46,7 +46,7 @@
 
 
 <script lang="coffee">
-innovationDefaults = require '../resources/demoInnovation.coffee'
+innovationDefaults = require '../resources/innovation.coffee'
 
 utils = require '../utilities'
 

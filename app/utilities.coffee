@@ -86,7 +86,7 @@ module.exports =
   DataHelper: DataHelper
 
   getResults: (db, id) ->
-    data = new DataHelper db.queryAll('results', {query: {innovationVersion: id}})
+    data = new DataHelper db.queryAll('results', {query: {innovationVersionID: id}})
     results = 
         JSON: data.toJsonString()
         CSV: data.toCsvString()

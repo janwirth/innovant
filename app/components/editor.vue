@@ -3,6 +3,7 @@
   .Editor-view
     link(v-bind:href='innovation.font.url' rel='stylesheet' type='text/css')
 
+    .DropZone(v-dropzone:module="insertModule($dropdata.module, 0)")
     template(v-for='module in innovation.modules')
 
       section.Module(class='Module--{{module.type}}' v-bind:style='{background: innovation.colors.background, \
@@ -106,7 +107,7 @@
 
 
 <script lang="coffee">
-innovationDefaults = require '../resources/demoInnovation'
+innovationDefaults = require '../resources/innovation'
 innovationModules = require '../resources/modules'
 fonts = require '../resources/fonts'
 DataHelper = require('../utilities').DataHelper
