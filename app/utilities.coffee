@@ -7,12 +7,15 @@ class DataHelper
     data = []
     columnLabels = []
 
+    # just return raw data if no results are given
+    return if !rawData[0]?
+
     # generate headings from first answer set
     for answer, moduleNumber in rawData[0].results
 
       # answer may be deactivated
       if answer.active
-        console.log columnPrefix = "[#{moduleNumber}] " + answer.question.text.substr(0, 8) + '...'
+        columnPrefix = "[#{moduleNumber}] " + answer.question.text.substr(0, 8) + '...'
 
         for input in answer.inputs
           columnName = columnPrefix + ' ' + input.label
@@ -45,23 +48,23 @@ class DataHelper
     # create CSV structure
     for row in data
       for field in row
-        field = '"' + field + '"' if field.indexOf?
+        field = '"' + field + '"' if field.indexOf? if field?
         csvString += field + ','
       # trim comma before newline
       csvString = csvString[0 .. csvString.length - 2] + '\n'
 
     #trim last char
-    console.log csvString
     return csvString[0 .. csvString.length - 2] 
 
     # remove last char
-    console.log csvString
     csvString = data.toString()
 
   toJsonString: =>
+    return undefined if !@data?
     "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(@data))
 
   toCsvString: =>
+    return undefined if !@data?
     "data:text/csv;charset=utf-8," + encodeURIComponent(@toCsv(@data))
 
 
@@ -81,3 +84,10 @@ module.exports =
   id: -> Math.random().toString(36).substr(2, 9);
 
   DataHelper: DataHelper
+
+  getResults: (db, id) ->
+    data = new DataHelper db.queryAll('results', {query: {innovationVersion: id}})
+    results = 
+        JSON: data.toJsonString()
+        CSV: data.toCsvString()
+        raw:  data.getRaw()

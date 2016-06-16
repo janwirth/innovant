@@ -110,6 +110,7 @@ innovationDefaults = require '../resources/demoInnovation'
 innovationModules = require '../resources/modules'
 fonts = require '../resources/fonts'
 DataHelper = require('../utilities').DataHelper
+getResults = require('../utilities').getResults
 
 DB = window.localStorageDB
 
@@ -122,7 +123,7 @@ module.exports =
     db =  DB 'innovant', localStorage
     currentVersion = db.queryAll('innovationVersions', {query: {ID: @$route.params.ID}})[0]
 
-    results = new DataHelper db.queryAll('results', {query: {innovationVersion: @$route.params.ID}})
+    results = getResults(db, @$route.params.ID)
 
     data =
       fonts: fonts
@@ -133,10 +134,7 @@ module.exports =
       innovation: currentVersion
       innovationModules: innovationModules
       versionID: currentVersion.ID # hack: localStorageDB deletes the in-storage the id on update...
-      results:
-        JSON: results.toJsonString()
-        CSV: results.toCsvString()
-        raw:  results.getRaw()
+      results: results
       viewUrl: '/#!/' + currentVersion.ID + '/' + currentVersion.slug
     console.log data
     return data
