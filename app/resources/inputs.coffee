@@ -1,8 +1,11 @@
 module.exports =
-  range: ->
+  range: (label = 'Pol A', labelHigh = 'Pol B') ->
     type: 'range'
-    label: 'Pol A'
-    labelHigh: 'Pol B'
-  textarea: ->
-    label: 'Feldspezifische Frage'
+    label: label
+    labelHigh: labelHigh
+    name: 'Intervallfeld'
+
+  textarea: (label = 'Feldspezifische Frage') ->
+    label: label
     type: 'textarea'
+    name: 'Textfeld'

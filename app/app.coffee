@@ -5,7 +5,7 @@ router    = new VueRouter()
 
 header    = require './components/header.vue'
 overview  = require './components/overview.vue'
-editor    = require './components/editor.vue'
+editor    = require './components/editor/index.vue'
 viewer    = require './components/viewer.vue'
 
 Vue.component 'headbar', header
@@ -14,9 +14,11 @@ router.map
   '/':
     component: overview
     title: 'Übersicht'
+
   '/edit/:ID/:innovation_slug':
     title: 'Bearbeiten'
     component: editor
+
   '/:ID/:innovation_slug':
     component: viewer
 
