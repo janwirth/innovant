@@ -1,0 +1,26 @@
+.Analysis
+  width 100%
+  &-section
+    relative()
+
+  &-slide
+    padding vr-block(3) 0 0
+    width 100%
+    display flex
+    justify-content flex-end
+    transform translateX(10px)
+
+  &-tabs
+    display flex
+    margin vr-block(1)
+    .Tab
+      padding vr-block(1)
+      background black
+      color white
+      margin-right vr-block(.5)
+      cursor pointer
+      &.is-active
+        background grey
+      &:hover
+        background yellow
+        color black

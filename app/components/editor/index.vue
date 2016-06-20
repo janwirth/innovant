@@ -1,7 +1,8 @@
 <template lang="jade">
+Analysis(v-if='innovation.published')
 .Editor
 
-  View(v-bind:innovation='innovation')
+  View(v-bind:innovation='innovation' v-if='!innovation.published')
 
   .EditorToolbar
     .InnovationInfo
@@ -10,9 +11,9 @@
       p(v-if='innovation.published').InnovationInfo-description Publiziert und schreibgeschützt
       button(v-on:click='publish()' v-if='!innovation.published').PublishButton Publizieren
 
-    a(v-bind:href='viewUrl' target='_blank' v-if='innovation.published').Button--showSurvey Umfrage zeigen
+    // a(v-bind:href='viewUrl' target='_blank' v-if='innovation.published').Button--showSurvey Umfrage zeigen
 
-    .EditorState
+    .EditorState(v-if='!innovation.published')
       div(v-if='!innovation.published').EditorState-tab.is-active Entwickeln
       div(v-if='innovation.published').EditorState-tab Analyse
 
@@ -43,11 +44,11 @@
           .ModuleTemplate(v-for='module in modules' v-draggable:module="{module: module, index: $index}")
 
 
-    div(v-if='innovation.published').Editor-analysisPanel
-      .EditorPanelHeading Ergebnisse Herunterladen
-      a(v-bind:download='innovation.name + ".json"' v-bind:href='results.JSON').Button--resultsDownload JSONresults
-      a(v-bind:download='innovation.name + ".csv"' v-bind:href='results.CSV').Button--resultsDownload CSV
-      a(v-bind:download='innovation.name + ".csv"' v-bind:href='results.raw').Button--resultsDownload Rohdaten
+//    div(v-if='innovation.published').Editor-analysisPanel
+//      .EditorPanelHeading Ergebnisse Herunterladen
+//      a(v-bind:download='innovation.name + ".json"' v-bind:href='results.JSON').Button--resultsDownload JSONresults
+//      a(v-bind:download='innovation.name + ".csv"' v-bind:href='results.CSV').Button--resultsDownload CSV
+//      a(v-bind:download='innovation.name + ".csv"' v-bind:href='results.raw').Button--resultsDownload Rohdaten
 </template>
 
 
@@ -92,6 +93,7 @@ module.exports =
 
   components:
     View: require './view.vue'
+    Analysis: require './analysis.vue'
 
   directives:
     medium: require '../../directives/medium'
