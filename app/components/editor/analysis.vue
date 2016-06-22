@@ -64,10 +64,13 @@ module.exports =
         console.log 'last slide reached'
 
     setSection: (id) ->
-      @currentSection = id
-      @sections[id].currentSlide = 0
+      if id == @currentSection
+        if @sections[@currentSection].currentSlide > 0
+          console.log @sections[@currentSection].currentSlide--
+      else
+        @currentSection = id
+        @sections[id].currentSlide = 0
 
     last: ->
-      @currentSlide--
 
 </script>
