@@ -7,22 +7,7 @@
       "font-family": innovation.font.name,\
       "border-color": innovation.colors.text}')
 
-      .Module-content
-        // render each content bit
-        div(v-for='(type, value) in module.content' class='{{type}}')
-
-          .Heading-wrap(v-if='type == "Heading"')
-            h1.Heading {{{value}}}
-
-          .Text-wrap(v-if='type == "Text"')
-            p.Text {{{value}}}
-
-          .Image-wrap(v-if='type == "Image"')
-            img(v-bind:src='value').Image
-
-          .Table-wrap(v-if='type == "Table"')
-            | {{{value}}}
-
+      module-content(v-bind:module='module' v-bind:innovation='innovation')
 
       // render question
       .Module-analytics(v-if='module.analytics.active')
@@ -95,6 +80,9 @@ module.exports =
   directives:
     medium: require '../directives/medium'
 
+  components:
+    'ModuleContent': require './moduleContent.vue'
+
   watch:
     result:
       deep: true
@@ -103,4 +91,5 @@ module.exports =
         db.update 'results', {ID: @resultID}, (row) ->
           newState
         db.commit()
+
 </script>

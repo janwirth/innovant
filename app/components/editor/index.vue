@@ -10,8 +10,8 @@ Analysis(v-if='innovation.published')
       p(v-medium='innovation.description' mode='partial').InnovationInfo-description
       p(v-if='innovation.published').InnovationInfo-description Publiziert und schreibgeschützt
       button(v-on:click='publish()' v-if='!innovation.published').PublishButton Publizieren
+      a(v-bind:href='viewUrl' target='_blank' v-if='innovation.published').Button--showSurvey Umfrage zeigen
 
-    // a(v-bind:href='viewUrl' target='_blank' v-if='innovation.published').Button--showSurvey Umfrage zeigen
 
     .EditorState(v-if='!innovation.published')
       div(v-if='!innovation.published').EditorState-tab.is-active Entwickeln
