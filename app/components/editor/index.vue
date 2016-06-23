@@ -1,5 +1,6 @@
 <template lang="jade">
-Analysis(v-if='innovation.published')
+Analysis(v-if='innovation.published && results.raw.length > 0')
+.Note(v-if='innovation.published && results.raw.length == 0') Noch keine Ergebnisse
 .Editor
 
   View(v-bind:innovation='innovation' v-if='!innovation.published')

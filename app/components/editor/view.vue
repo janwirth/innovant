@@ -1,6 +1,8 @@
 <template lang="jade">
   .Editor-view
     link(v-bind:href='innovation.font.url' rel='stylesheet' type='text/css')
+    .Note(v-if='innovation.modules.length == 0') Füge von rechts dein erstes Modul ein.
+
 
     .DropZone(v-dropzone:module="insertModule($dropdata.module, 0)")
     template(v-for='module in innovation.modules')
