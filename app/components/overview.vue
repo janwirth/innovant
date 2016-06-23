@@ -18,9 +18,9 @@
 
       .InnovationCard-icon.download(v-if='innovation.results.CSV')
       .InnovationCard-downloadBar(v-if='innovation.results.CSV')
-        a(v-bind:download='innovation.name + ".json"' v-bind:href='innovation.results.JSON').InnovationCard-download CSV
-        a(v-bind:download='innovation.name + ".csv"' v-bind:href='innovation.results.CSV').InnovationCard-download JSON
-        a(v-bind:download='innovation.name + ".csv"' v-bind:href='innovation.results.raw').InnovationCard-download raw
+        a(v-bind:download='innovation.currentVersion.name + ".json"' v-bind:href='innovation.results.JSON').InnovationCard-download JSON
+        a(v-bind:download='innovation.currentVersion.name + ".csv"' v-bind:href='innovation.results.CSV').InnovationCard-download CSV
+        a(v-bind:download='innovation.currentVersion.name + ".json"' v-bind:href='innovation.results.raw').InnovationCard-download raw
       .InnovationCard-title {{innovation.currentVersion.name}}
       // .InnovationCard-badge
       // .InnovationCard-ribbon
