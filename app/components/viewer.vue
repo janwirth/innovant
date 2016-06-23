@@ -26,6 +26,8 @@
           div(v-if='input.type == "textarea"' class='Input--{{input.type}}')
             .Input-label {{{input.label}}}
             textarea(v-model='input.value').Input-element
+    section.Module.demographics
+      img(src='img/demographics.png')
 </template>
 
 

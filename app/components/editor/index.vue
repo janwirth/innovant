@@ -1,6 +1,6 @@
 <template lang="jade">
-Analysis(v-if='innovation.published && results.raw.length > 0')
-.Note(v-if='innovation.published && results.raw.length == 0') Noch keine Ergebnisse
+Analysis(v-if='innovation.published && results.raw')
+.Note(v-if='innovation.published && !results.raw') Noch keine Ergebnisse
 .Editor
 
   View(v-bind:innovation='innovation' v-if='!innovation.published')
@@ -72,7 +72,7 @@ module.exports =
     db =  DB 'innovant', localStorage
     currentVersion = db.queryAll('innovationVersions', {query: {ID: @$route.params.ID}})[0]
 
-    if currentVersion.results = 'fake'
+    if currentVersion.results == 'fake'
       results = innovationDefaults.results
     else
       results = getResults(db, @$route.params.ID)
