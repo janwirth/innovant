@@ -8,7 +8,7 @@
   .Analysis-section
     .Analysis-slide(v-for='slide in sections[currentSection].slides' v-show='sections[currentSection].currentSlide == $index')
       img(v-bind:src='"img/analysis/" + slide'  v-on:click='next(sections[currentSection])')
-  
+
 
 </template>
 
@@ -36,11 +36,11 @@ module.exports =
               '05_boxplot.png'
               '06_semantisches_diff.png'
               '07_semantisches_diff_absolut.png'
-              '08_zurück_zu_säulen.png'
+              '08_zurueck_zu_saeulen.png'
               '09_usp_features_ausklappen.png'
               '10_usp_features_wieder_zuklappen.png'
               '11_Filter_Dropdown.png'
-              '12_Filter_männlich.png'
+              '12_Filter_maennlich.png'
               '13_Vergleich_Dropdown.png'
               '14_Vergleich_zweiAltersgruppen.png'
             ]
