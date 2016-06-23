@@ -6,9 +6,9 @@
       .InnovationCard-icon(src='img/icons/add.svg')
       .InnovationCard-title Neue Innovation
 
-    .InnovationCard.InnovationCard--clear(v-on:click='clearInnovations')
-      .InnovationCard-icon(src='img/icons/delete.svg')
-      .InnovationCard-title [DEV: clear all innovations]
+    // .InnovationCard.InnovationCard--clear(v-on:click='clearInnovations')
+    //   .InnovationCard-icon(src='img/icons/delete.svg')
+    //   .InnovationCard-title [DEV: clear all innovations]
 
     .InnovationCard(v-for='innovation in innovations' v-bind:style='{background: innovation.currentVersion.colors.background,\
         color: innovation.currentVersion.colors.text,\
@@ -58,7 +58,6 @@ module.exports =
       @db.createTable 'results', ['innovationVersionID', 'sessionID', 'results']
 
       # insert triton
-      newInnovation = innovationDefaults.templates.triton()
       versionId = @db.insert 'innovationVersions', newInnovation
       @db.insert 'innovations',
         versions: [versionId]
@@ -77,7 +76,11 @@ module.exports =
             ID: currentVersionId
         innovation.currentVersion = innovationVersions[0]
         innovation.currentVersion.slug = slug innovation.currentVersion.name
-        innovation.results = getResults @db, currentVersionId
+
+        if innovation.currentVersion.published
+          innovation.results = innovationDefaults.results
+        else
+          innovation.results = getResults @db, currentVersionId
       innovations
     return {innovations: @getInnovationsFromDB()}
 

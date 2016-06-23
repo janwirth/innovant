@@ -4,7 +4,7 @@
     relative()
 
   &-slide
-    padding vr-block(3) 0 0
+    padding vr-block(8) 0 0
     width 100%
     display flex
     justify-content flex-end
@@ -12,15 +12,28 @@
 
   &-tabs
     display flex
-    margin vr-block(1)
+    fixed top vr-block(2) right vr-block(15)
+    border-bottom 2px solid black
+    height vr-block(6)
+    padding-top vr-block(3.5)
+    width 1000px
+    z-index 50
+    background #EAEAEA
     .Tab
       padding vr-block(1)
-      background black
-      color white
+      background transparentify(black, black, 0.2)
+      color black
       margin-right vr-block(.5)
       cursor pointer
       &.is-active
-        background grey
+        background black
+        color white
       &:hover
         background yellow
-        color black
+  + .Editor .EditorToolbar
+    position absolute
+
+.Note
+  padding vr-block(3)
+  t-h3()
+  color grey

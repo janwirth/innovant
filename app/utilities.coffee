@@ -63,6 +63,10 @@ class DataHelper
     return undefined if !@data?
     "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(@data))
 
+  getRawURI: =>
+    return undefined if !@data?
+    "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(@rawData))
+
   toCsvString: =>
     return undefined if !@data?
     "data:text/csv;charset=utf-8," + encodeURIComponent(@toCsv(@data))
@@ -90,4 +94,11 @@ module.exports =
     results = 
         JSON: data.toJsonString()
         CSV: data.toCsvString()
-        raw:  data.getRaw()
+        raw:  data.getRawURI()
+
+  encodeResults: (rawData) ->
+    data = new DataHelper rawData
+    results =
+      JSON: data.toJsonString()
+      CSV: data.toCsvString()
+      raw:  data.getRawURI()

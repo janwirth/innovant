@@ -5,6 +5,9 @@ modules = require './modules'
 inputs = require './inputs'
 fonts = require './fonts'
 
+encodeResults = require('../utilities').encodeResults
+fakeResults = encodeResults require './results'
+
 module.exports =
   templates:
 
@@ -35,7 +38,8 @@ module.exports =
     triton: ->
       name: 'Triton Schnorchel'
       description: 'Tauchen ohne O2'
-      published: false
+      published: true
+      results: 'fake'
       font: fonts[4]
       colors:
         text: '#ADD8E6'
@@ -49,3 +53,4 @@ module.exports =
   modules: modules
 
   inputs: inputs
+  results: fakeResults

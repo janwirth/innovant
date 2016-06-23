@@ -72,7 +72,10 @@ module.exports =
     db =  DB 'innovant', localStorage
     currentVersion = db.queryAll('innovationVersions', {query: {ID: @$route.params.ID}})[0]
 
-    results = getResults(db, @$route.params.ID)
+    if currentVersion.results = 'fake'
+      results = innovationDefaults.results
+    else
+      results = getResults(db, @$route.params.ID)
 
     data =
       fonts: fonts
