@@ -58,6 +58,7 @@ module.exports =
       @db.createTable 'results', ['innovationVersionID', 'sessionID', 'results']
 
       # insert triton
+      newInnovation = innovationDefaults.templates.triton()
       versionId = @db.insert 'innovationVersions', newInnovation
       @db.insert 'innovations',
         versions: [versionId]
